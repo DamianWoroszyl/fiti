@@ -255,7 +255,7 @@
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-58" value="DayCalories" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" vertex="1" parent="iD8q2Ngl5nhgPQJ0ivGi-53">
           <mxGeometry x="20" y="240" width="250" height="180" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-59" value="date: LocalDate&lt;div&gt;meals: List&amp;lt;DayMeal&amp;gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="iD8q2Ngl5nhgPQJ0ivGi-58">
+        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-59" value="date: LocalDate&lt;div&gt;meals: List&amp;lt;ConsumedMeal&amp;gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="iD8q2Ngl5nhgPQJ0ivGi-58">
           <mxGeometry x="10" y="30" width="230" height="150" as="geometry" />
         </mxCell>
         <mxCell id="IB8QoxIUkL5-A1D3NvcY-7" value="Meal" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" vertex="1" parent="iD8q2Ngl5nhgPQJ0ivGi-53">
