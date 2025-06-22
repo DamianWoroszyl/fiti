@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Fiti"
 include(":app")
- 
+include(":calories:model")
