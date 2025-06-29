@@ -1,13 +1,7 @@
 pluginManagement {
     includeBuild("build-logic")
     repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
+        google()
         mavenCentral()
         gradlePluginPortal()
     }
@@ -23,3 +17,6 @@ dependencyResolutionManagement {
 rootProject.name = "Fiti"
 include(":app")
 include(":calories:model")
+include(":calories:storage")
+include(":calories:storage:api")
+include(":calories:storage:database")
