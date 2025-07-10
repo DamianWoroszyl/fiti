@@ -3,9 +3,9 @@ package com.fullrandom.convention
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
 
-const val COMPILE_SDK = 34
+const val COMPILE_SDK = 36
 const val MIN_SDK = 24
-const val TARGET_SDK = 34
+const val TARGET_SDK = 36
 
 internal fun Project.configureAndroidCommon(
     extension: CommonExtension<*, *, *, *, *, *>,

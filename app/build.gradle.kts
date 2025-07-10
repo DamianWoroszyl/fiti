@@ -1,17 +1,16 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    id("fiti.android.application")
+    id("fiti.jetbrains.kotlin.android")
+    id("fiti.android.compose")
+    id("fiti.android.hilt")
+    id("fiti.kotlin.detekt")
 }
 
 android {
     namespace = "com.fullrandom.fiti"
-    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.fullrandom.fiti"
-        minSdk = 24
-        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -26,16 +25,11 @@ android {
                 "proguard-rules.pro"
             )
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-    buildFeatures {
-        compose = true
+        debug {
+            isMinifyEnabled = false
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+        }
     }
 }
 
