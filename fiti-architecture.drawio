@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" version="27.1.6" pages="3">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" version="28.0.3" pages="3">
   <diagram name="use-cases" id="OTDSEAKqXFHnVf4DYOmP">
     <mxGraphModel dx="983" dy="518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -99,30 +99,42 @@
     </mxGraphModel>
   </diagram>
   <diagram id="n5rtlhoHSXyPGEzr7GqR" name="calorie-arch">
-    <mxGraphModel dx="2015" dy="626" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="4901" dy="3315" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="iD8q2Ngl5nhgPQJ0ivGi-2" target="iD8q2Ngl5nhgPQJ0ivGi-12" edge="1">
+        <mxCell id="IB8QoxIUkL5-A1D3NvcY-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="iD8q2Ngl5nhgPQJ0ivGi-2" target="IB8QoxIUkL5-A1D3NvcY-13" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="IB8QoxIUkL5-A1D3NvcY-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" parent="1" source="iD8q2Ngl5nhgPQJ0ivGi-2" target="IB8QoxIUkL5-A1D3NvcY-13" edge="1">
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="iD8q2Ngl5nhgPQJ0ivGi-2" target="4bC9On_vsKEy3pfpwTzs-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-2" value=":calories:data" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="530" y="1080" width="880" height="440" as="geometry" />
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="iD8q2Ngl5nhgPQJ0ivGi-2" target="4bC9On_vsKEy3pfpwTzs-29">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-4" value="CaloriesManager" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;rounded=0;shadow=0;glass=0;align=center;verticalAlign=middle;swimlaneFillColor=#FBFBFB;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=1;gradientColor=none;" parent="iD8q2Ngl5nhgPQJ0ivGi-2" vertex="1">
-          <mxGeometry x="10" y="40" width="510" height="190" as="geometry" />
+        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-2" value=":calories:data:impl" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="460" y="1130" width="690" height="440" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-5" value="saveProduct(product: Product)&lt;div&gt;saveConsumedCalories(date: LocalDate, consumedProducts: List&amp;lt;ConsumedProduct&amp;gt;)&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;observeConsumedCalories(range: DateRange): Flow&amp;lt;DayCalories&amp;gt;&lt;/div&gt;&lt;div&gt;observeAvailableProducts(): Flow&amp;lt;List&amp;lt;Product&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;searchProduct(query: String): Flow&amp;lt;List&amp;lt;Product&amp;gt;&amp;gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=0;" parent="iD8q2Ngl5nhgPQJ0ivGi-4" vertex="1">
-          <mxGeometry x="10" y="30" width="500" height="90" as="geometry" />
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="iD8q2Ngl5nhgPQJ0ivGi-2" source="4bC9On_vsKEy3pfpwTzs-21" target="4bC9On_vsKEy3pfpwTzs-26">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-12" value=":calories:storage" style="swimlane;whiteSpace=wrap;html=1;swimlaneLine=1;" parent="1" vertex="1">
-          <mxGeometry x="530" y="1580" width="1410" height="670" as="geometry" />
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-21" value="CaloriesRepositoryImpl" style="swimlane;whiteSpace=wrap;html=1;rounded=0;shadow=0;glass=0;align=center;verticalAlign=middle;swimlaneFillColor=#FBFBFB;fontFamily=Helvetica;fontSize=12;fontStyle=1;" vertex="1" parent="iD8q2Ngl5nhgPQJ0ivGi-2">
+          <mxGeometry x="20" y="39" width="360" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-13" value="CaloriesStorage" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;gradientColor=none;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-12" vertex="1">
-          <mxGeometry x="10" y="40" width="440" height="180" as="geometry" />
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-26" value="OnlineCaloriesRepository" style="swimlane;whiteSpace=wrap;html=1;rounded=0;shadow=0;glass=0;align=center;verticalAlign=middle;swimlaneFillColor=#FBFBFB;fontFamily=Helvetica;fontSize=12;fontStyle=1;" vertex="1" parent="iD8q2Ngl5nhgPQJ0ivGi-2">
+          <mxGeometry x="420" y="39" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-28" value="Used mainly for search and base products catalog" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="4bC9On_vsKEy3pfpwTzs-26">
+          <mxGeometry x="5" y="30" width="235" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="iD8q2Ngl5nhgPQJ0ivGi-12" target="4bC9On_vsKEy3pfpwTzs-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-12" value=":calories:storage:database" style="swimlane;whiteSpace=wrap;html=1;swimlaneLine=1;" parent="1" vertex="1">
+          <mxGeometry x="460" y="2230" width="1240" height="640" as="geometry" />
+        </mxCell>
+        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-13" value="CaloriesStorageImpl" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-12" vertex="1">
+          <mxGeometry x="20" y="40" width="440" height="180" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-14" value="saveProduct(product: Product)&lt;div&gt;saveConsumedCalories(products: List&amp;lt;ConsumedProduct&amp;gt;)&lt;/div&gt;&lt;div&gt;observeConsumedCalories(range: DateRange): Flow&amp;lt;List&amp;lt;DayCalories&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;observeAvailableProducts(): Flow&amp;lt;List&amp;lt;Product&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;searchProduct(query: String): Flow&amp;lt;List&amp;lt;Product&amp;gt;&amp;gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="iD8q2Ngl5nhgPQJ0ivGi-13" vertex="1">
           <mxGeometry x="10" y="35" width="420" height="90" as="geometry" />
@@ -142,43 +154,43 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-21" value="RoomDatabase" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-12" vertex="1">
-          <mxGeometry x="144" y="390" width="250" height="85" as="geometry" />
+          <mxGeometry x="20" y="405" width="250" height="85" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-22" value="ProductDao" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-12" vertex="1">
-          <mxGeometry x="10" y="520" width="250" height="85" as="geometry" />
+          <mxGeometry x="20" y="535" width="250" height="85" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-23" value="MealDao" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-12" vertex="1">
-          <mxGeometry x="280" y="520" width="250" height="85" as="geometry" />
+          <mxGeometry x="290" y="535" width="250" height="85" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-29" value="ConsumedProductDao" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-12" vertex="1">
-          <mxGeometry x="550" y="520" width="250" height="85" as="geometry" />
+          <mxGeometry x="560" y="535" width="250" height="85" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-30" value="ProductEntity" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-12" vertex="1">
-          <mxGeometry x="807" y="40" width="250" height="180" as="geometry" />
+        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-30" value="ProductEntity" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iD8q2Ngl5nhgPQJ0ivGi-12" vertex="1">
+          <mxGeometry x="970" y="40" width="250" height="180" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-31" value="id:String&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;name:String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;carbohydrates: Double&lt;/div&gt;&lt;div&gt;fat: Double&lt;/div&gt;&lt;div&gt;protein: Double&lt;/div&gt;&lt;div&gt;kcal: Double&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="iD8q2Ngl5nhgPQJ0ivGi-30" vertex="1">
           <mxGeometry x="10" y="30" width="230" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-32" value="MealEntity" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-12" vertex="1">
-          <mxGeometry x="1080" y="40" width="250" height="180" as="geometry" />
+        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-32" value="MealEntity" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iD8q2Ngl5nhgPQJ0ivGi-12" vertex="1">
+          <mxGeometry x="970" y="440" width="250" height="180" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-33" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;id: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;name: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;order: Int&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="iD8q2Ngl5nhgPQJ0ivGi-32" vertex="1">
           <mxGeometry x="10" y="30" width="230" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-34" value="ConsumedProduct" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-12" vertex="1">
-          <mxGeometry x="807" y="245" width="250" height="180" as="geometry" />
+        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-34" value="ConsumedProduct" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iD8q2Ngl5nhgPQJ0ivGi-12" vertex="1">
+          <mxGeometry x="970" y="240" width="250" height="180" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-35" value="id:String&lt;div&gt;mealId: String&lt;/div&gt;&lt;div&gt;productId: String&lt;/div&gt;&lt;div&gt;date: LocalDate&lt;/div&gt;&lt;div&gt;amountGrams: Double&lt;/div&gt;&lt;div&gt;&lt;div&gt;carbohydrates: Double&lt;/div&gt;&lt;div&gt;fat: Double&lt;/div&gt;&lt;div&gt;protein: Double&lt;/div&gt;&lt;div&gt;kcal: Double&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="iD8q2Ngl5nhgPQJ0ivGi-34" vertex="1">
           <mxGeometry x="10" y="30" width="230" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="iD8q2Ngl5nhgPQJ0ivGi-37" target="iD8q2Ngl5nhgPQJ0ivGi-2" edge="1">
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="iD8q2Ngl5nhgPQJ0ivGi-37" target="4bC9On_vsKEy3pfpwTzs-29">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="IB8QoxIUkL5-A1D3NvcY-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="iD8q2Ngl5nhgPQJ0ivGi-37" target="IB8QoxIUkL5-A1D3NvcY-21" edge="1">
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="iD8q2Ngl5nhgPQJ0ivGi-37" target="4bC9On_vsKEy3pfpwTzs-39">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-37" value=":calories:domain" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="530" y="610" width="880" height="440" as="geometry" />
+          <mxGeometry x="460" y="-30" width="940" height="440" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-38" value="SaveDishUseCase" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;fillColor=#647687;fontColor=#ffffff;strokeColor=#314354;" parent="iD8q2Ngl5nhgPQJ0ivGi-37" vertex="1">
           <mxGeometry x="540" y="200" width="250" height="60" as="geometry" />
@@ -217,7 +229,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-48" value=":calories:ui" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="530" y="280" width="880" height="290" as="geometry" />
+          <mxGeometry x="460" y="-360" width="940" height="290" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-49" value="DayCaloriesScreen" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-48" vertex="1">
           <mxGeometry x="20" y="40" width="250" height="60" as="geometry" />
@@ -238,64 +250,97 @@
           <mxGeometry x="290" y="115" width="250" height="60" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-53" value=":calories:model" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="-230" y="610" width="600" height="670" as="geometry" />
+          <mxGeometry x="-430" y="610" width="600" height="670" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-54" value="DateRange" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;startSize=23;" parent="iD8q2Ngl5nhgPQJ0ivGi-53" vertex="1">
-          <mxGeometry x="20" y="40" width="250" height="180" as="geometry" />
+        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-54" value="DateRange" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;startSize=23;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iD8q2Ngl5nhgPQJ0ivGi-53" vertex="1">
+          <mxGeometry x="20" y="40" width="250" height="80" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-55" value="start: LocalDate&lt;div&gt;end: LocalDate&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="iD8q2Ngl5nhgPQJ0ivGi-54" vertex="1">
           <mxGeometry x="10" y="30" width="230" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-56" value="Product" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-53" vertex="1">
+        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-56" value="Product" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iD8q2Ngl5nhgPQJ0ivGi-53" vertex="1">
           <mxGeometry x="300" y="40" width="250" height="180" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-57" value="id:String&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;name:String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;carbohydrates: Double&lt;/div&gt;&lt;div&gt;fat: Double&lt;/div&gt;&lt;div&gt;protein: Double&lt;/div&gt;&lt;div&gt;kcal: Double&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="iD8q2Ngl5nhgPQJ0ivGi-56" vertex="1">
           <mxGeometry x="10" y="30" width="230" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-58" value="DayCalories" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-53" vertex="1">
+        <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-58" value="DayCalories" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iD8q2Ngl5nhgPQJ0ivGi-53" vertex="1">
           <mxGeometry x="20" y="240" width="250" height="180" as="geometry" />
         </mxCell>
         <mxCell id="iD8q2Ngl5nhgPQJ0ivGi-59" value="date: LocalDate&lt;div&gt;meals: List&amp;lt;ConsumedProduct&amp;gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="iD8q2Ngl5nhgPQJ0ivGi-58" vertex="1">
           <mxGeometry x="10" y="30" width="230" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="IB8QoxIUkL5-A1D3NvcY-7" value="Meal" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-53" vertex="1">
+        <mxCell id="IB8QoxIUkL5-A1D3NvcY-7" value="Meal" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iD8q2Ngl5nhgPQJ0ivGi-53" vertex="1">
           <mxGeometry x="300" y="240" width="250" height="180" as="geometry" />
         </mxCell>
         <mxCell id="IB8QoxIUkL5-A1D3NvcY-8" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;id: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;n&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;ame: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;order: Int&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="IB8QoxIUkL5-A1D3NvcY-7" vertex="1">
           <mxGeometry x="10" y="30" width="230" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="IB8QoxIUkL5-A1D3NvcY-17" value="ConsumedMeal" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" parent="iD8q2Ngl5nhgPQJ0ivGi-53" vertex="1">
+        <mxCell id="IB8QoxIUkL5-A1D3NvcY-17" value="ConsumedMeal" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iD8q2Ngl5nhgPQJ0ivGi-53" vertex="1">
           <mxGeometry x="20" y="440" width="250" height="180" as="geometry" />
         </mxCell>
         <mxCell id="IB8QoxIUkL5-A1D3NvcY-18" value="&lt;div&gt;meal: Meal&lt;/div&gt;&lt;div&gt;date: LocalDate&lt;/div&gt;&lt;div&gt;products: List&amp;lt;ConsumedProduct&amp;gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="IB8QoxIUkL5-A1D3NvcY-17" vertex="1">
           <mxGeometry x="10" y="30" width="230" height="150" as="geometry" />
         </mxCell>
-        <mxCell id="cIymGL80le8Na9bqtDOJ-1" value="ConsumedProduct" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" vertex="1" parent="iD8q2Ngl5nhgPQJ0ivGi-53">
+        <mxCell id="cIymGL80le8Na9bqtDOJ-1" value="ConsumedProduct" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="iD8q2Ngl5nhgPQJ0ivGi-53" vertex="1">
           <mxGeometry x="300" y="440" width="250" height="200" as="geometry" />
         </mxCell>
-        <mxCell id="cIymGL80le8Na9bqtDOJ-2" value="&lt;div&gt;id: String&lt;/div&gt;&lt;div&gt;mealId: String&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;name: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;order: Int&lt;/div&gt;&lt;div&gt;date: LocalDate&lt;/div&gt;&lt;div&gt;amountGrams: Double&lt;/div&gt;&lt;div&gt;product: Product&lt;/div&gt;&lt;div&gt;&lt;div&gt;carbohydrates: Double&lt;/div&gt;&lt;div&gt;fat: Double&lt;/div&gt;&lt;div&gt;protein: Double&lt;/div&gt;&lt;div&gt;kcal: Double&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="cIymGL80le8Na9bqtDOJ-1">
+        <mxCell id="cIymGL80le8Na9bqtDOJ-2" value="&lt;div&gt;id: String&lt;/div&gt;&lt;div&gt;mealId: String&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;name: String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;order: Int&lt;/div&gt;&lt;div&gt;date: LocalDate&lt;/div&gt;&lt;div&gt;amountGrams: Double&lt;/div&gt;&lt;div&gt;product: Product&lt;/div&gt;&lt;div&gt;&lt;div&gt;carbohydrates: Double&lt;/div&gt;&lt;div&gt;fat: Double&lt;/div&gt;&lt;div&gt;protein: Double&lt;/div&gt;&lt;div&gt;kcal: Double&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" parent="cIymGL80le8Na9bqtDOJ-1" vertex="1">
           <mxGeometry x="10" y="25" width="230" height="175" as="geometry" />
         </mxCell>
-        <mxCell id="IB8QoxIUkL5-A1D3NvcY-13" value="Products - cached in DB. DB is SSOT" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1470" y="1050" width="260" height="200" as="geometry" />
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-48" value="HourRange" style="swimlane;whiteSpace=wrap;html=1;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;startSize=23;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="iD8q2Ngl5nhgPQJ0ivGi-53">
+          <mxGeometry x="20" y="140" width="250" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="pBO_gcr8D0kZEjPxQ_8R-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="IB8QoxIUkL5-A1D3NvcY-21" target="iD8q2Ngl5nhgPQJ0ivGi-2" edge="1">
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-49" value="start: LocalTime&lt;div&gt;end: LocalTime&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;" vertex="1" parent="4bC9On_vsKEy3pfpwTzs-48">
+          <mxGeometry x="10" y="30" width="230" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IB8QoxIUkL5-A1D3NvcY-13" value="Products - cached in local cache&amp;nbsp;&lt;div&gt;Local cache is SSOT for Products,&amp;nbsp;&lt;/div&gt;&lt;div&gt;never use Products directly from BE&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1241" y="1235" width="316" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="IB8QoxIUkL5-A1D3NvcY-21" target="4bC9On_vsKEy3pfpwTzs-29">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="IB8QoxIUkL5-A1D3NvcY-21" value=":calories:assistant" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1820" y="1080" width="880" height="440" as="geometry" />
+        <mxCell id="IB8QoxIUkL5-A1D3NvcY-21" value=":calories:assistant:impl" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1725" y="621.25" width="440" height="307.5" as="geometry" />
         </mxCell>
-        <mxCell id="IB8QoxIUkL5-A1D3NvcY-22" value="CalorieAssitantManager" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;rounded=0;shadow=0;glass=0;align=center;verticalAlign=middle;swimlaneFillColor=#FBFBFB;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=1;gradientColor=none;" parent="IB8QoxIUkL5-A1D3NvcY-21" vertex="1">
-          <mxGeometry x="10" y="40" width="400" height="190" as="geometry" />
-        </mxCell>
-        <mxCell id="IB8QoxIUkL5-A1D3NvcY-23" value="saveConfig()&lt;div&gt;callNow()&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=0;" parent="IB8QoxIUkL5-A1D3NvcY-22" vertex="1">
-          <mxGeometry x="10" y="30" width="90" height="40" as="geometry" />
+        <mxCell id="IB8QoxIUkL5-A1D3NvcY-22" value="CalorieAssitantManagerImpl" style="swimlane;whiteSpace=wrap;html=1;rounded=0;shadow=0;glass=0;align=center;verticalAlign=middle;swimlaneFillColor=#FBFBFB;fontFamily=Helvetica;fontSize=12;fontStyle=1;" parent="IB8QoxIUkL5-A1D3NvcY-21" vertex="1">
+          <mxGeometry x="20" y="40" width="400" height="100" as="geometry" />
         </mxCell>
         <mxCell id="IB8QoxIUkL5-A1D3NvcY-27" value="Regular calls - ConnectionService / Telecom API&lt;div&gt;Work Manager&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="IB8QoxIUkL5-A1D3NvcY-21" vertex="1">
-          <mxGeometry x="10" y="240" width="400" height="60" as="geometry" />
+          <mxGeometry x="20" y="157.5" width="400" height="60" as="geometry" />
         </mxCell>
         <mxCell id="pBO_gcr8D0kZEjPxQ_8R-3" value="Result of a call is - meals are saved with proper products" style="rounded=0;whiteSpace=wrap;html=1;" parent="IB8QoxIUkL5-A1D3NvcY-21" vertex="1">
-          <mxGeometry x="10" y="310" width="400" height="60" as="geometry" />
+          <mxGeometry x="20" y="232.5" width="400" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-1" value=":calories:storage:api" style="swimlane;whiteSpace=wrap;html=1;swimlaneLine=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="460" y="1740" width="480" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-2" value="CaloriesStorage" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;gradientColor=none;rounded=0;swimlaneLine=1;glass=0;shadow=0;swimlaneFillColor=#FBFBFB;" vertex="1" parent="4bC9On_vsKEy3pfpwTzs-1">
+          <mxGeometry x="20" y="40" width="440" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-3" value="saveProduct(product: Product)&lt;div&gt;saveConsumedCalories(products: List&amp;lt;ConsumedProduct&amp;gt;)&lt;/div&gt;&lt;div&gt;observeConsumedCalories(range: DateRange): Flow&amp;lt;List&amp;lt;DayCalories&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;observeAvailableProducts(): Flow&amp;lt;List&amp;lt;Product&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;searchProduct(query: String): Flow&amp;lt;List&amp;lt;Product&amp;gt;&amp;gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="4bC9On_vsKEy3pfpwTzs-2">
+          <mxGeometry x="10" y="35" width="420" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-29" value=":calories:data:api" style="swimlane;whiteSpace=wrap;html=1;swimlaneLine=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="460" y="650" width="550" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-34" value="CaloriesRepository" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;rounded=0;shadow=0;glass=0;align=center;verticalAlign=middle;swimlaneFillColor=#FBFBFB;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=1;gradientColor=none;" vertex="1" parent="4bC9On_vsKEy3pfpwTzs-29">
+          <mxGeometry x="20" y="40" width="510" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-35" value="saveProduct(product: Product)&lt;div&gt;saveConsumedCalories(date: LocalDate, consumedProducts: List&amp;lt;ConsumedProduct&amp;gt;)&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;observeConsumedCalories(range: DateRange): Flow&amp;lt;DayCalories&amp;gt;&lt;/div&gt;&lt;div&gt;observeAvailableProducts(): Flow&amp;lt;List&amp;lt;Product&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;searchProduct(query: String): Flow&amp;lt;List&amp;lt;Product&amp;gt;&amp;gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=0;" vertex="1" parent="4bC9On_vsKEy3pfpwTzs-34">
+          <mxGeometry x="10" y="30" width="500" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="4bC9On_vsKEy3pfpwTzs-39" target="IB8QoxIUkL5-A1D3NvcY-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-39" value=":calories:assistant:api" style="swimlane;whiteSpace=wrap;html=1;swimlaneLine=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1670" y="260" width="550" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-40" value="CalorieAssitantManager" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;rounded=0;shadow=0;glass=0;align=center;verticalAlign=middle;swimlaneFillColor=#FBFBFB;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=1;gradientColor=none;" vertex="1" parent="4bC9On_vsKEy3pfpwTzs-39">
+          <mxGeometry x="20" y="40" width="510" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-41" value="saveCallHours(range: DayHourRange)&lt;div&gt;getCallHours(): DayHourRange&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=0;" vertex="1" parent="4bC9On_vsKEy3pfpwTzs-40">
+          <mxGeometry x="10" y="30" width="230" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
