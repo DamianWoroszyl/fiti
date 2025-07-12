@@ -1,4 +1,4 @@
-package com.fullrandom.fiti.storage.api
+package com.fullrandom.calories.data.api
 
 import com.fullrandom.model.ConsumedProduct
 import com.fullrandom.model.DateRange
@@ -7,8 +7,7 @@ import com.fullrandom.model.Meal
 import com.fullrandom.model.Product
 import kotlinx.coroutines.flow.Flow
 
-interface CaloriesStorage {
-
+interface CaloriesRepository {
     suspend fun saveProduct(product: Product)
     suspend fun saveConsumedCalories(products: List<ConsumedProduct>)
     fun observeConsumedCalories(range: DateRange): Flow<List<DayCalories>>

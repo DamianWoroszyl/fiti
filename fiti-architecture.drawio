@@ -99,7 +99,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="n5rtlhoHSXyPGEzr7GqR" name="calorie-arch">
-    <mxGraphModel dx="4901" dy="3315" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1810" dy="1687" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -327,8 +327,8 @@
         <mxCell id="4bC9On_vsKEy3pfpwTzs-34" value="CaloriesRepository" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;rounded=0;shadow=0;glass=0;align=center;verticalAlign=middle;swimlaneFillColor=#FBFBFB;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=1;gradientColor=none;" vertex="1" parent="4bC9On_vsKEy3pfpwTzs-29">
           <mxGeometry x="20" y="40" width="510" height="190" as="geometry" />
         </mxCell>
-        <mxCell id="4bC9On_vsKEy3pfpwTzs-35" value="saveProduct(product: Product)&lt;div&gt;saveConsumedCalories(date: LocalDate, consumedProducts: List&amp;lt;ConsumedProduct&amp;gt;)&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;observeConsumedCalories(range: DateRange): Flow&amp;lt;DayCalories&amp;gt;&lt;/div&gt;&lt;div&gt;observeAvailableProducts(): Flow&amp;lt;List&amp;lt;Product&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;searchProduct(query: String): Flow&amp;lt;List&amp;lt;Product&amp;gt;&amp;gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=0;" vertex="1" parent="4bC9On_vsKEy3pfpwTzs-34">
-          <mxGeometry x="10" y="30" width="500" height="90" as="geometry" />
+        <mxCell id="4bC9On_vsKEy3pfpwTzs-35" value="saveProduct(product: Product)&lt;div&gt;saveConsumedCalories(consumedProducts: List&amp;lt;ConsumedProduct&amp;gt;)&lt;/div&gt;&lt;div&gt;observeConsumedCalories(range: DateRange): Flow&amp;lt;List&amp;lt;DayCalories&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;observeAvailableProducts(): Flow&amp;lt;List&amp;lt;Product&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;searchProduct(query: String): Flow&amp;lt;List&amp;lt;Product&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;searchMeal(query: String)&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;: Flow&amp;lt;List&amp;lt;Meal&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;observeMeals: Flow&amp;lt;List&amp;lt;Meal&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;saveMeal(meal:Meal)&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=0;" vertex="1" parent="4bC9On_vsKEy3pfpwTzs-34">
+          <mxGeometry x="10" y="30" width="420" height="130" as="geometry" />
         </mxCell>
         <mxCell id="4bC9On_vsKEy3pfpwTzs-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="4bC9On_vsKEy3pfpwTzs-39" target="IB8QoxIUkL5-A1D3NvcY-21">
           <mxGeometry relative="1" as="geometry" />

@@ -2,18 +2,18 @@ Architectural decisions record:
 
 TODO: create a proper markdown document
 
-1. Fiti calories storage to be split between :api and :database (default implementation)
+1. Modules that must be implemented as android module should be split between api and implementation modules
+
 - context
--- how to split storage modules? Should we even have multiple storage modules?
+-- how to split modules? Which modules should be split between api and implementation?
 
 - considered solutions
--- android module for database storage with implementation, public interface and everything else marked as internal
--- room database straight in data/domain module
--- clean kotlin/java module with api and implementation android module with database
+-- just implementation modules, public interface and everything else marked as internal
+-- clean kotlin/java module with api and implementation android module
 
 - decision
--- create clean kotlin api module and android implementation module
+-- create clean kotlin api module and android implementation modules every time the implementation modules is an android module
 
 - consequences
--- downside - more modules for inital gain in initial stages of the project
--- upside - easier to change implementation in the future. Allows to have domain calories module as clean kotlin/java module instead of forcing whole stack to be android moudles
+-- downside - more modules for little gain in initial stages of the project
+-- upside - easier to change implementation in the future. Allows to have domain modules as clean kotlin/java module instead of forcing whole stack to be android modules

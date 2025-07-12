@@ -27,4 +27,7 @@ internal interface MealDao {
 
     @Query("DELETE FROM meal")
     suspend fun clearAll()
+
+    @Query("SELECT * FROM meal WHERE name LIKE '%' || :query || '%' ORDER BY `order` ASC")
+    fun searchByName(query: String): Flow<List<MealEntity>>
 }
