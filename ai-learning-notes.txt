@@ -1,0 +1,4 @@
+Learning notes
+- for gradle errors - it's better to fix it by yourself, AI can get very easily stuck in an infinite loop
+- it did notice computational complexity inside my logic setup and provided best solution to minimize it's impact on performance
+- 
