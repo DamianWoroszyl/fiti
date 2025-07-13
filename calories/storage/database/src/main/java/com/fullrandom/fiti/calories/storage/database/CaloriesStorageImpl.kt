@@ -97,4 +97,12 @@ internal class CaloriesStorageImpl(
     override suspend fun saveMeal(meal: Meal) {
         mealDao.insert(MealEntity.fromDomain(meal))
     }
+
+    override fun searchMeal(query: String): Flow<List<Meal>> {
+        return mealDao.searchByName(query).map { mealEntityList ->
+            mealEntityList.map { mealEntity ->
+                mealEntity.toDomain()
+            }
+        }
+    }
 }
