@@ -19,8 +19,9 @@ androidGradlePlugin = "8.11.0"
 detekt = "1.23.8"
 androidDesugarJdkLibs = "2.1.5"
 daggerHilt = "2.56.2"
-
+javaxInject = "1"
 [libraries]
+javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
