@@ -1,7 +1,7 @@
 package com.fullrandom.calories.domain.assistant
 
-import com.fullrandom.calories.domain.api.CaloriesAssistant
-import com.fullrandom.calories.domain.api.CaloriesAssistantConfig
+import com.fullrandom.calories.assistant.api.CaloriesAssistant
+import com.fullrandom.calories.assistant.api.CaloriesAssistantConfig
 import javax.inject.Inject
 
 class SaveVoiceAssistantConfigUseCase @Inject constructor(
