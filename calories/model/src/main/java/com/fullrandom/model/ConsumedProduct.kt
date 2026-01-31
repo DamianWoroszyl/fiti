@@ -3,13 +3,13 @@ package com.fullrandom.model
 import java.time.LocalDate
 
 /**
- * id - id of the Product
- * name - name of the product
- * carbohydrates - carbohydrates / 100g, fallback if Product is null
- * fat - fat / 100g, fallback if Product is null
- * protein - protein / 100g, fallback if Product is null
- * kcal - kcal / 100g, fallback if Product is null
- * amountGrams - consumed amount in grams
+ * @param id - id of the Product
+ * @param productName - name of the product
+ * @param carbohydrates - carbohydrates / 100g, fallback if Product is null
+ * @param fat - fat / 100g, fallback if Product is null
+ * @param protein - protein / 100g, fallback if Product is null
+ * @param kcal - kcal / 100g, fallback if Product is null
+ * @param amountGrams - consumed amount in grams
  */
 data class ConsumedProduct(
     val id: String,

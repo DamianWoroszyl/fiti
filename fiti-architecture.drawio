@@ -1,35 +1,44 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36" version="28.0.4" pages="3">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" version="29.3.6" pages="4">
   <diagram name="use-cases" id="OTDSEAKqXFHnVf4DYOmP">
-    <mxGraphModel dx="983" dy="518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1426" dy="751" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="qaXm5NW-_RKSkuAVvWhl-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="qaXm5NW-_RKSkuAVvWhl-1" target="qaXm5NW-_RKSkuAVvWhl-2">
+        <mxCell id="qaXm5NW-_RKSkuAVvWhl-8" edge="1" parent="1" source="qaXm5NW-_RKSkuAVvWhl-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="qaXm5NW-_RKSkuAVvWhl-2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="qaXm5NW-_RKSkuAVvWhl-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="qaXm5NW-_RKSkuAVvWhl-1" target="qaXm5NW-_RKSkuAVvWhl-4">
+        <mxCell id="qaXm5NW-_RKSkuAVvWhl-9" edge="1" parent="1" source="qaXm5NW-_RKSkuAVvWhl-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="qaXm5NW-_RKSkuAVvWhl-4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="qaXm5NW-_RKSkuAVvWhl-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="qaXm5NW-_RKSkuAVvWhl-1" target="qaXm5NW-_RKSkuAVvWhl-3">
+        <mxCell id="qaXm5NW-_RKSkuAVvWhl-10" edge="1" parent="1" source="qaXm5NW-_RKSkuAVvWhl-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="qaXm5NW-_RKSkuAVvWhl-3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="qaXm5NW-_RKSkuAVvWhl-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="qaXm5NW-_RKSkuAVvWhl-1" target="qaXm5NW-_RKSkuAVvWhl-11">
+        <mxCell id="qaXm5NW-_RKSkuAVvWhl-12" edge="1" parent="1" source="qaXm5NW-_RKSkuAVvWhl-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="qaXm5NW-_RKSkuAVvWhl-11">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="qaXm5NW-_RKSkuAVvWhl-1" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
-          <mxGeometry x="60" y="170" width="30" height="60" as="geometry" />
+        <mxCell id="qaXm5NW-_RKSkuAVvWhl-1" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="User" vertex="1">
+          <mxGeometry height="60" width="30" x="60" y="170" as="geometry" />
         </mxCell>
-        <mxCell id="qaXm5NW-_RKSkuAVvWhl-2" value="Track eaten dishes/calories via voice input" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="160" y="80" width="200" height="40" as="geometry" />
+        <mxCell id="qaXm5NW-_RKSkuAVvWhl-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Track eaten dishes/calories via voice input" vertex="1">
+          <mxGeometry height="40" width="200" x="160" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="qaXm5NW-_RKSkuAVvWhl-3" value="View calories consumed on different days via pager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="160" y="180" width="200" height="40" as="geometry" />
+        <mxCell id="qaXm5NW-_RKSkuAVvWhl-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="View calories consumed on different days via pager" vertex="1">
+          <mxGeometry height="40" width="200" x="160" y="180" as="geometry" />
         </mxCell>
-        <mxCell id="qaXm5NW-_RKSkuAVvWhl-4" value="Edit days dishes" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="160" y="130" width="200" height="40" as="geometry" />
+        <mxCell id="qaXm5NW-_RKSkuAVvWhl-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Edit days dishes" vertex="1">
+          <mxGeometry height="40" width="200" x="160" y="130" as="geometry" />
         </mxCell>
-        <mxCell id="qaXm5NW-_RKSkuAVvWhl-11" value="Be called by an AI assistant in agreed upon hours or at particular time.&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;ConnectionService / Telecom API&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="160" y="230" width="200" height="80" as="geometry" />
+        <mxCell id="qaXm5NW-_RKSkuAVvWhl-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Be called by an AI assistant in agreed upon hours or at particular time.&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;ConnectionService / Telecom API&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="200" x="160" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="6euHqWrVmjImEH9np5s2-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Create dishes" vertex="1">
+          <mxGeometry height="40" width="200" x="160" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="6euHqWrVmjImEH9np5s2-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Create products" vertex="1">
+          <mxGeometry height="40" width="200" x="160" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="6euHqWrVmjImEH9np5s2-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Add dishes and products to meal&amp;nbsp;" vertex="1">
+          <mxGeometry height="40" width="200" x="160" y="430" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
@@ -347,6 +356,26 @@
         </mxCell>
         <mxCell id="KV6WyO6SZZtwF33Lj4zP-3" value="callHours: HourRange" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=0;" vertex="1" parent="KV6WyO6SZZtwF33Lj4zP-2">
           <mxGeometry x="10" y="30" width="140" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="4IgsuXvJAnXuNvuVnTQK" name="screens">
+    <mxGraphModel dx="2253" dy="751" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="v8IimMptm5h7dxIZSkhk-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Product and dish browser&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;/ go to details&lt;/div&gt;&lt;/div&gt;&lt;div&gt;/ args whether we&#39;re adding to a dish, meal. or browsing&lt;/div&gt;" vertex="1">
+          <mxGeometry height="310" width="210" x="140" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="v8IimMptm5h7dxIZSkhk-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Summary&lt;div&gt;&lt;br&gt;&lt;div&gt;/ days pager&lt;/div&gt;&lt;div&gt;/ meal split&lt;/div&gt;&lt;div&gt;/ macro summary&lt;/div&gt;&lt;div&gt;/ add product/dish to given meal&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="310" width="220" x="-90" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="UmWoCfsTL1SAMAGSFQ1T-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Product details&amp;nbsp;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;/ add to a meal (info from args)&lt;/div&gt;&lt;div&gt;/ add to a dish (info from args)&lt;/div&gt;&lt;div&gt;/ edit macro&lt;/div&gt;&lt;div&gt;/ delete&lt;/div&gt;" vertex="1">
+          <mxGeometry height="310" width="210" x="360" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="UmWoCfsTL1SAMAGSFQ1T-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Dish details&amp;nbsp;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;/ add to a meal (info from args)&lt;/div&gt;&lt;div&gt;/ add products&lt;/div&gt;&lt;div&gt;/ modify products gramature&lt;/div&gt;&lt;div&gt;/ edit name&lt;/div&gt;&lt;div&gt;/ delete&lt;/div&gt;&lt;div&gt;/ save&lt;/div&gt;" vertex="1">
+          <mxGeometry height="310" width="200" x="580" y="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

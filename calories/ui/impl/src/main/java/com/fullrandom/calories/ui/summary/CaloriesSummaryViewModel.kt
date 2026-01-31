@@ -1,4 +1,4 @@
-package com.fullrandom.calories.ui
+package com.fullrandom.calories.ui.summary
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,17 +6,22 @@ import com.fullrandom.calories.assistant.api.CaloriesAssistant
 import com.fullrandom.calories.assistant.api.SpeechEvent
 import com.fullrandom.calories.domain.ObserveCaloriesUseCase
 import com.fullrandom.calories.domain.assistant.VoiceAssistantStartTalkUseCase
+import com.fullrandom.calories.ui.Navigator
+import com.fullrandom.calories.ui.api.CaloriesUiNavKeys
 import com.fullrandom.model.ConsumedProduct
 import com.fullrandom.model.DateRange
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import javax.inject.Inject
 
-@HiltViewModel
-class CaloriesSummaryViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = CaloriesSummaryViewModel.Factory::class)
+class CaloriesSummaryViewModel @AssistedInject constructor(
+    @Assisted private val navKey: CaloriesUiNavKeys.SummaryScreenNavKey,
     private val observeCaloriesUseCase: ObserveCaloriesUseCase,
     private val voiceAssistantCallNowUseCase: VoiceAssistantStartTalkUseCase,
     private val navigator: Navigator,
@@ -56,16 +61,13 @@ class CaloriesSummaryViewModel @Inject constructor(
     private fun observeSpeechRecognitionResults() {
         viewModelScope.launch {
             caloriesAssistant.events.collect { event ->
-                println("dwtest: " + event)
                 when(event) {
                     is SpeechEvent.Error -> _finalRecognizedText.value = event.error.message
                     is SpeechEvent.FinalResult -> {
-                        println("dwtest abc")
                         _finalRecognizedText.value = event.result
                         _partialSpeechDisplay.value = null
                     }
                     is SpeechEvent.PartialResult -> {
-                        println("dwtest cde")
                         _partialSpeechDisplay.value = event.result
                     }
                 }
@@ -78,7 +80,8 @@ class CaloriesSummaryViewModel @Inject constructor(
     }
 
     fun onTalkWithAssistantClicked() {
-        voiceAssistantCallNowUseCase()
+//        voiceAssistantCallNowUseCase()
+        TODO("probably only dictation will be used")
     }
 
     fun toggleAssistantListening() {
@@ -102,5 +105,10 @@ class CaloriesSummaryViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         caloriesAssistant.destroy()
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(navKey: CaloriesUiNavKeys.SummaryScreenNavKey): CaloriesSummaryViewModel
     }
 }

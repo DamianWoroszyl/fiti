@@ -1,4 +1,4 @@
-package com.fullrandom.calories.ui
+package com.fullrandom.calories.ui.summary
 
 import android.Manifest
 import android.content.pm.PackageManager

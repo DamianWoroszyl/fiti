@@ -3,6 +3,7 @@ plugins {
     id("fiti.jetbrains.kotlin.android")
     id("fiti.android.compose")
     id("fiti.android.hilt")
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 android {
@@ -14,10 +15,19 @@ android {
 }
 
 dependencies {
+    implementation(project(":calories:ui:api"))
     implementation(project(":calories:model"))
     implementation(project(":calories:domain"))
     implementation(project(":calories:assistant:api"))
     implementation(project(":calories:assistant:impl"))
+    implementation(project(":core:ui"))
+
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+    implementation(libs.androidx.material3.adaptive.navigation3)
+    implementation(libs.kotlinx.serialization.core)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     implementation(libs.androidx.core.ktx)
 
