@@ -6,8 +6,8 @@ import com.fullrandom.calories.assistant.api.CaloriesAssistant
 import com.fullrandom.calories.assistant.api.SpeechEvent
 import com.fullrandom.calories.domain.ObserveCaloriesUseCase
 import com.fullrandom.calories.domain.assistant.VoiceAssistantStartTalkUseCase
-import com.fullrandom.calories.ui.Navigator
 import com.fullrandom.calories.ui.api.CaloriesUiNavKeys
+import com.fullrandom.fiti.core.ui.api.navigation.Navigator
 import com.fullrandom.model.ConsumedProduct
 import com.fullrandom.model.DateRange
 import dagger.assisted.Assisted
@@ -76,7 +76,7 @@ class CaloriesSummaryViewModel @AssistedInject constructor(
     }
 
     fun onAddConsumedProductClicked() {
-        navigator.navigateToAddConsumedProduct()
+//        navigator.navigateToAddConsumedProduct()
     }
 
     fun onTalkWithAssistantClicked() {

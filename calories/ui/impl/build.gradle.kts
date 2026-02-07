@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.fullrandom.fiti.calories.ui"
+    namespace = "com.fullrandom.fiti.calories.ui.impl"
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
@@ -20,7 +20,7 @@ dependencies {
     implementation(project(":calories:domain"))
     implementation(project(":calories:assistant:api"))
     implementation(project(":calories:assistant:impl"))
-    implementation(project(":core:ui"))
+    implementation(project(":core:ui:api"))
 
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.navigation3.runtime)

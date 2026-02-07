@@ -5,6 +5,7 @@ import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import com.fullrandom.calories.ui.api.CaloriesUiNavKeys
 import com.fullrandom.calories.ui.productedit.ProductEditScreen
+import com.fullrandom.calories.ui.productedit.ProductEditViewModel
 import com.fullrandom.calories.ui.summary.CaloriesSummaryScreen
 import com.fullrandom.calories.ui.summary.CaloriesSummaryViewModel
 import dagger.Module
@@ -26,10 +27,17 @@ object NavModule {
                     creationCallback = { factory ->
                         factory.create(key)
                     }
-                ))
+                )
+            )
         }
-        entry<CaloriesUiNavKeys.ProductDetailsScreenNavKey> {
-            ProductEditScreen()
+        entry<CaloriesUiNavKeys.ProductDetailsScreenNavKey> { key ->
+            ProductEditScreen(
+                viewModel = hiltViewModel<ProductEditViewModel, ProductEditViewModel.Factory>(
+                    creationCallback = { factory ->
+                        factory.create(key.productId)
+                    }
+                )
+            )
         }
     }
 }

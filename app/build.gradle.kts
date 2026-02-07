@@ -41,7 +41,9 @@ dependencies {
     implementation(project(":calories:assistant:impl"))
     implementation(project(":calories:storage:api"))
     implementation(project(":calories:storage:database"))
-    implementation(project(":core:ui"))
+    implementation(project(":core:ui:api"))
+    implementation(project(":core:ui:impl"))
+    implementation(project(":core:common"))
 
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.navigation3.runtime)
