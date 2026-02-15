@@ -1,0 +1,17 @@
+# Architectural decisions record
+
+## 1. Modules that must be implemented as android module should be split between api and implementation modules
+
+### context
+* how to split modules? Which modules should be split between api and implementation?
+
+### considered solutions
+* just implementation modules, public interface and everything else marked as internal
+* clean kotlin/java module with api and implementation android module
+
+### decision
+* create clean kotlin api module and android implementation modules every time the implementation modules is an android module
+
+### consequences
+* downside - more modules for little gain in initial stages of the project
+* upside - easier to change implementation in the future. Allows to have domain modules as clean kotlin/java module instead of forcing whole stack to be android modules
