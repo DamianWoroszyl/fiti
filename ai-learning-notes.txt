@@ -1,4 +1,4 @@
 Learning notes
 - for gradle errors - it's better to fix it by yourself, AI can get very easily stuck in an infinite loop
 - it did notice computational complexity inside my logic setup and provided best solution to minimize it's impact on performance
-- 
+- coding with AI is not enjoyable at all. You still need to understand everything - which takes the most time anyway, but instead of typing code yourself you need to read through bloated AI output and fix a lot of little problems. It adds quite an overhead to mental strain, because now it's not only 'understand the domain problem', but also 'understand if the LLM did a good job, and if it didn't - what needs to be fixed'

@@ -34,9 +34,22 @@ android {
 }
 
 dependencies {
-    implementation(project(path = ":calories:model"))
-    implementation(project(path = ":calories:storage:api"))
-    implementation(project(path = ":calories:storage:database"))
+    implementation(project(":calories:ui:api"))
+    implementation(project(":calories:ui:impl"))
+    implementation(project(":calories:model"))
+    implementation(project(":calories:data:impl"))
+    implementation(project(":calories:assistant:impl"))
+    implementation(project(":calories:storage:api"))
+    implementation(project(":calories:storage:database"))
+    implementation(project(":core:ui:api"))
+    implementation(project(":core:ui:impl"))
+    implementation(project(":core:common"))
+
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+    implementation(libs.androidx.material3.adaptive.navigation3)
+    implementation(libs.kotlinx.serialization.core)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

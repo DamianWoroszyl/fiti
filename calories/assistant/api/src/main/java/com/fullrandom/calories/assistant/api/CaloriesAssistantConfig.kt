@@ -1,4 +1,4 @@
-package com.fullrandom.calories.domain.api
+package com.fullrandom.calories.assistant.api
 
 import com.fullrandom.model.HourRange
 

@@ -1,12 +1,12 @@
 package com.fullrandom.model
 
 /**
- * id - id of the Product
- * name - name of the product
- * carbohydrates - carbohydrates / 100g
- * fat = fat / 100g
- * protein = protein / 100g
- * kcal = kcal / 100g
+ * @param id - id of the Product
+ * @param name - name of the product
+ * @param carbohydrates - carbohydrates / 100g
+ * @param fat = fat / 100g
+ * @param protein = protein / 100g
+ * @param kcal = kcal / 100g
  */
 data class Product(
     val id: String,
