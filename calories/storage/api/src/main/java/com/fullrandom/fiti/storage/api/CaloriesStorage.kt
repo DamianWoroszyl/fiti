@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.Flow
 interface CaloriesStorage {
 
     suspend fun saveProduct(product: Product)
+    suspend fun deleteProduct(id: String)
+    suspend fun getProduct(id: String): Product?
     suspend fun saveConsumedCalories(products: List<ConsumedProduct>)
     fun observeConsumedCalories(range: DateRange): Flow<List<DayCalories>>
     fun observeAvailableProducts(): Flow<List<Product>>

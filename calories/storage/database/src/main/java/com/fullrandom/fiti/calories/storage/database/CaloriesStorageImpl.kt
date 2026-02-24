@@ -26,6 +26,14 @@ internal class CaloriesStorageImpl(
         productDao.insert(ProductEntity.fromDomain(product))
     }
 
+    override suspend fun deleteProduct(id: String) {
+        productDao.delete(id)
+    }
+
+    override suspend fun getProduct(id: String): Product? {
+        return productDao.getById(id)?.toDomain()
+    }
+
     override suspend fun saveConsumedCalories(
         products: List<ConsumedProduct>
     ) {

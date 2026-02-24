@@ -4,6 +4,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import com.fullrandom.calories.ui.api.CaloriesUiNavKeys
+import com.fullrandom.calories.ui.productdetails.ProductDetailsScreen
+import com.fullrandom.calories.ui.productdetails.ProductDetailsViewModel
 import com.fullrandom.calories.ui.productedit.ProductEditScreen
 import com.fullrandom.calories.ui.productedit.ProductEditViewModel
 import com.fullrandom.calories.ui.summary.CaloriesSummaryScreen
@@ -31,10 +33,19 @@ object NavModule {
             )
         }
         entry<CaloriesUiNavKeys.ProductDetailsScreenNavKey> { key ->
+            ProductDetailsScreen(
+                viewModel = hiltViewModel<ProductDetailsViewModel, ProductDetailsViewModel.Factory>(
+                    creationCallback = { factory ->
+                        factory.create(key)
+                    }
+                )
+            )
+        }
+        entry<CaloriesUiNavKeys.ProductEditNavKey> { key ->
             ProductEditScreen(
                 viewModel = hiltViewModel<ProductEditViewModel, ProductEditViewModel.Factory>(
                     creationCallback = { factory ->
-                        factory.create(key.productId)
+                        factory.create(key)
                     }
                 )
             )

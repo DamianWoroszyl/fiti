@@ -8,6 +8,7 @@ import com.fullrandom.model.DayCalories
 import com.fullrandom.model.Meal
 import com.fullrandom.model.Product
 import kotlinx.coroutines.flow.Flow
+import java.util.UUID
 import javax.inject.Inject
 
 class CaloriesRepositoryImpl @Inject constructor(
@@ -15,7 +16,20 @@ class CaloriesRepositoryImpl @Inject constructor(
 ) : CaloriesRepository {
 
     override suspend fun saveProduct(product: Product) {
-        caloriesStorage.saveProduct(product)
+        val productToSave = if (product.id.isBlank()) {
+            product.copy(id = UUID.randomUUID().toString())
+        } else {
+            product
+        }
+        caloriesStorage.saveProduct(productToSave)
+    }
+
+    override suspend fun deleteProduct(id: String) {
+        caloriesStorage.deleteProduct(id)
+    }
+
+    override suspend fun getProduct(id: String): Product? {
+        return caloriesStorage.getProduct(id)
     }
 
     override suspend fun saveConsumedCalories(products: List<ConsumedProduct>) {

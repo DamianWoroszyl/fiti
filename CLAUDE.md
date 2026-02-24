@@ -32,6 +32,7 @@ This project is a modern Android application that follows the official architect
 - **State Management**: Unidirectional Data Flow (UDF) is implemented using Kotlin Coroutines and Flows. ViewModels act as state holders, exposing UI state as streams of data.
 - **Dependency Injection**: Hilt is used for dependency injection throughout the app, simplifying the management of dependencies and improving testability.
 - **Navigation**: Navigation is handled by Jetpack Navigation 3 for Compose, allowing for a declarative and type-safe way to navigate between screens. There's an app-specific wrapper over navigation to simplify and streamline usage in :core:ui modules
+- Always check ADR.md at the root of the project for more information about architecture
 
 # Modules
 - for all android modules create an :api and :impl module so that users of that module can import and use :api module rather than being forced to be an android module
@@ -65,6 +66,8 @@ All modules use convention plugins instead of repeating build config:
 3. Add both to `settings.gradle.kts`
 4. Wire impl module into `app/build.gradle.kts`
 5. Add Hilt `@Module` in impl module to bind API → impl
+
+**UI:** Always use string resources, never add plain strings to be displayed to users
 
 ## Dependencies & Versions
 

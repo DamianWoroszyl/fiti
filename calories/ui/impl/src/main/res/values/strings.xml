@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="product_edit_title_new_product">New product</string>
+    <string name="product_edit_field_name">Product name</string>
+    <string name="product_edit_button_save">Save</string>
+    <string name="product_edit_label_kcal">kcal / 100g</string>
+    <string name="product_edit_label_carbs">carbs / 100g</string>
+    <string name="product_edit_label_protein">protein / 100g</string>
+    <string name="product_edit_label_fat">fat / 100g</string>
+    <string name="product_edit_cd_back">Back</string>
+    <string name="product_edit_cd_delete">Delete product</string>
+</resources>
