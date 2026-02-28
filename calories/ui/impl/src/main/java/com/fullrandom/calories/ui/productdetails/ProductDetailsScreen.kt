@@ -15,25 +15,23 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.fullrandom.fiti.calories.ui.impl.R
+import com.fullrandom.fiti.core.ui.components.FitiTopBar
 
 @Composable
 fun ProductDetailsScreen(
@@ -48,7 +46,6 @@ fun ProductDetailsScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDetailsScreenContent(
     uiState: ProductDetailsUiState,
@@ -56,31 +53,17 @@ fun ProductDetailsScreenContent(
     onAddToTarget: () -> Unit,
     onBack: () -> Unit,
 ) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = uiState.productName.ifBlank { "Product" },
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                        )
-                    }
-                },
-            )
-        }
-    ) { paddingValues ->
+    Column(modifier = Modifier.fillMaxSize()) {
+        FitiTopBar(
+            title = uiState.productName.ifBlank { stringResource(R.string.product_details_title_fallback) },
+            leftIcon = Icons.AutoMirrored.Filled.ArrowBack,
+            leftIconContentDescription = stringResource(R.string.cd_back),
+            onLeftIconClick = onBack,
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(paddingValues)
                 .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
             if (uiState.targetName != null) {
@@ -119,9 +102,7 @@ fun ProductDetailsScreenContent(
                 Spacer(modifier = Modifier.height(16.dp))
                 HorizontalDivider()
                 Spacer(modifier = Modifier.height(16.dp))
-            }
 
-            if (uiState.targetName != null) {
                 Text(
                     text = "For ${uiState.gramsInput.ifBlank { "0" }}g",
                     style = MaterialTheme.typography.labelMedium,

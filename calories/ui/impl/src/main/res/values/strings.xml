@@ -9,4 +9,6 @@
     <string name="product_edit_label_fat">fat / 100g</string>
     <string name="product_edit_cd_back">Back</string>
     <string name="product_edit_cd_delete">Delete product</string>
+    <string name="product_details_title_fallback">Product</string>
+    <string name="cd_back">Back</string>
 </resources>
