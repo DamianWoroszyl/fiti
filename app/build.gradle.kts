@@ -44,6 +44,7 @@ dependencies {
     implementation(project(":core:ui:api"))
     implementation(project(":core:ui:impl"))
     implementation(project(":core:common"))
+    implementation(project(":core:init"))
 
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.navigation3.runtime)
