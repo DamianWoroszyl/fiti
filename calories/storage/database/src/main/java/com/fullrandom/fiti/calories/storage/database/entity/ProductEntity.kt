@@ -19,10 +19,10 @@ internal class ProductEntity(
             return ProductEntity(
                 id = product.id,
                 name = product.name,
-                carbohydrates = product.carbohydrates,
-                fat = product.fat,
-                protein = product.protein,
-                kcal = product.kcal
+                carbohydrates = product.carbohydratesPer100g,
+                fat = product.fatPer100g,
+                protein = product.proteinPer100g,
+                kcal = product.kcalPer100g
             )
         }
     }
@@ -32,9 +32,9 @@ internal fun ProductEntity.toDomain(): Product {
     return Product(
         id = this.id,
         name = this.name,
-        carbohydrates = this.carbohydrates,
-        fat = this.fat,
-        protein = this.protein,
-        kcal = this.kcal
+        carbohydratesPer100g = this.carbohydrates,
+        fatPer100g = this.fat,
+        proteinPer100g = this.protein,
+        kcalPer100g = this.kcal
     )
 }

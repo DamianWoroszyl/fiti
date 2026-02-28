@@ -6,6 +6,7 @@ import com.fullrandom.model.ConsumedProduct
 import com.fullrandom.model.DateRange
 import com.fullrandom.model.DayCalories
 import com.fullrandom.model.Meal
+import com.fullrandom.model.PreConsumedProduct
 import com.fullrandom.model.Product
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
@@ -32,8 +33,24 @@ class CaloriesRepositoryImpl @Inject constructor(
         return caloriesStorage.getProduct(id)
     }
 
-    override suspend fun saveConsumedCalories(products: List<ConsumedProduct>) {
-        caloriesStorage.saveConsumedCalories(products)
+    override suspend fun saveConsumedCalories(products: List<PreConsumedProduct>) {
+        caloriesStorage.saveConsumedCalories(
+            products.map{ preConsumedProduct ->
+                ConsumedProduct(
+                    id = UUID.randomUUID().toString(),
+                    mealId = preConsumedProduct.mealId,
+                    order = preConsumedProduct.order,
+                    date = preConsumedProduct.date,
+                    product = preConsumedProduct.product,
+                    amountGrams = preConsumedProduct.amountGrams,
+                    productName = preConsumedProduct.product.name,
+                    carbohydratesPer100g = preConsumedProduct.product.carbohydratesPer100g,
+                    fatPer100g = preConsumedProduct.product.fatPer100g,
+                    proteinPer100g = preConsumedProduct.product.proteinPer100g,
+                    kcalPer100g = preConsumedProduct.product.kcalPer100g,
+                )
+            }
+        )
     }
 
     override fun observeConsumedCalories(range: DateRange): Flow<List<DayCalories>> {

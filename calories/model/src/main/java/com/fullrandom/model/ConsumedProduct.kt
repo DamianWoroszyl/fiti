@@ -10,10 +10,10 @@ import java.time.LocalDate
  * @param product - consumed product data
  * @param amountGrams - consumed amount in grams
  * @param productName - name of the product, fallback if Product is null
- * @param carbohydrates - carbohydrates / 100g, fallback if Product is null
- * @param fat - fat / 100g, fallback if Product is null
- * @param protein - protein / 100g, fallback if Product is null
- * @param kcal - kcal / 100g, fallback if Product is null
+ * @param carbohydratesPer100g - carbohydrates / 100g, fallback if Product is null
+ * @param fatPer100g - fat / 100g, fallback if Product is null
+ * @param proteinPer100g - protein / 100g, fallback if Product is null
+ * @param kcalPer100g - kcal / 100g, fallback if Product is null
  */
 data class ConsumedProduct(
     val id: String,
@@ -23,8 +23,8 @@ data class ConsumedProduct(
     val product: Product?,
     val amountGrams: Double,
     val productName: String, // fallback
-    val carbohydrates: Double, // fallback
-    val fat: Double, // fallback
-    val protein: Double, // fallback
-    val kcal: Double, // fallback
+    val carbohydratesPer100g: Double, // fallback
+    val fatPer100g: Double, // fallback
+    val proteinPer100g: Double, // fallback
+    val kcalPer100g: Double, // fallback
 )

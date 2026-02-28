@@ -32,10 +32,10 @@ internal class ConsumedProductEntity(
                 date = consumedProduct.date,
                 amountGrams = consumedProduct.amountGrams,
                 productName = consumedProduct.product?.name ?: consumedProduct.productName,
-                carbohydrates = consumedProduct.product?.carbohydrates ?: consumedProduct.carbohydrates,
-                fat = consumedProduct.product?.fat ?: consumedProduct.fat,
-                protein = consumedProduct.product?.protein ?: consumedProduct.protein,
-                kcal = consumedProduct.product?.kcal ?: consumedProduct.kcal
+                carbohydrates = consumedProduct.product?.carbohydratesPer100g ?: consumedProduct.carbohydratesPer100g,
+                fat = consumedProduct.product?.fatPer100g ?: consumedProduct.fatPer100g,
+                protein = consumedProduct.product?.proteinPer100g ?: consumedProduct.proteinPer100g,
+                kcal = consumedProduct.product?.kcalPer100g ?: consumedProduct.kcalPer100g
             )
         }
     }

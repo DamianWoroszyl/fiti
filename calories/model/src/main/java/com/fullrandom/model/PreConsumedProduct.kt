@@ -4,7 +4,8 @@ import java.time.LocalDate
 
 data class PreConsumedProduct(
     val product: Product,
-    val amountGrams: Int,
+    val amountGrams: Double,
     val mealId: String,
     val date: LocalDate,
+    val order: Int,
 )

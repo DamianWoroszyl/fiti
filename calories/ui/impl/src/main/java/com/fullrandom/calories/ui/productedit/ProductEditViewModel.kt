@@ -36,10 +36,10 @@ class ProductEditViewModel @AssistedInject constructor(
                 if (product != null) {
                     _uiState.value = _uiState.value.copy(
                         productName = product.name,
-                        kcalPer100g = product.kcal.toString(),
-                        carbsPer100g = product.carbohydrates.toString(),
-                        proteinPer100g = product.protein.toString(),
-                        fatPer100g = product.fat.toString(),
+                        kcalPer100g = product.kcalPer100g.toString(),
+                        carbsPer100g = product.carbohydratesPer100g.toString(),
+                        proteinPer100g = product.proteinPer100g.toString(),
+                        fatPer100g = product.fatPer100g.toString(),
                     )
                 }
             }
@@ -72,10 +72,10 @@ class ProductEditViewModel @AssistedInject constructor(
             val product = Product(
                 id = navKey.productId ?: "",
                 name = state.productName,
-                kcal = state.kcalPer100g.toDoubleOrNull() ?: 0.0,
-                carbohydrates = state.carbsPer100g.toDoubleOrNull() ?: 0.0,
-                protein = state.proteinPer100g.toDoubleOrNull() ?: 0.0,
-                fat = state.fatPer100g.toDoubleOrNull() ?: 0.0,
+                kcalPer100g = state.kcalPer100g.toDoubleOrNull() ?: 0.0,
+                carbohydratesPer100g = state.carbsPer100g.toDoubleOrNull() ?: 0.0,
+                proteinPer100g = state.proteinPer100g.toDoubleOrNull() ?: 0.0,
+                fatPer100g = state.fatPer100g.toDoubleOrNull() ?: 0.0,
             )
             saveProductUseCase(product)
             navigator.pop()

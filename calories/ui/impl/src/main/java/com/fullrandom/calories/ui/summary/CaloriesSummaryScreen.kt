@@ -214,7 +214,7 @@ fun ConsumedProductItem(consumedProduct: ConsumedProduct) {
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = "Amount: ${consumedProduct.amountGrams}g")
-            Text(text = "Kcal: ${consumedProduct.kcal.toInt()}")
+            Text(text = "Kcal: ${consumedProduct.kcalPer100g.toInt()}")
             consumedProduct.product?.let {
                 // Text(text = "Brand: ${it.brand ?: "N/A"}")
             }
@@ -253,10 +253,10 @@ fun CaloriesSummaryScreenContentResultPreview() {
             product1,
             150.0,
             product1.name,
-            product1.carbohydrates * 1.5,
-            product1.fat * 1.5,
-            product1.protein * 1.5,
-            product1.kcal * 1.5
+            product1.carbohydratesPer100g * 1.5,
+            product1.fatPer100g * 1.5,
+            product1.proteinPer100g * 1.5,
+            product1.kcalPer100g * 1.5
         ),
     )
     MaterialTheme {

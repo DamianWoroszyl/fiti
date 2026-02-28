@@ -64,10 +64,10 @@ internal class CaloriesStorageImpl(
                         date = it.date,
                         amountGrams = it.amountGrams,
                         product = product,
-                        carbohydrates = it.carbohydrates,
-                        fat = it.fat,
-                        protein = it.protein,
-                        kcal = it.kcal,
+                        carbohydratesPer100g = it.carbohydrates,
+                        fatPer100g = it.fat,
+                        proteinPer100g = it.protein,
+                        kcalPer100g = it.kcal,
                     )
                 }
 
