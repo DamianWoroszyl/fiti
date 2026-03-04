@@ -21,7 +21,10 @@ Fiti is an Android calorie-tracking app with voice assistant integration, built 
 # Code quality
 ./gradlew detekt                  # Static analysis (config: config/detekt/config.yml)
 ```
-Don't try to launch the app on emulator or on a physical device
+
+# General rules
+- don't try to launch the app on emulator or on a physical device
+- be explicit when it comes to naming variables and adding type information
 
 # Architecture
 This project is a modern Android application that follows the official architecture guidance from Google. It is a reactive, single-activity app that uses the following:

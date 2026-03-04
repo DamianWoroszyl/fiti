@@ -1,8 +1,7 @@
 package com.fullrandom.calories.data.api
 
-import com.fullrandom.model.ConsumedProduct
+import com.fullrandom.model.ConsumedMeal
 import com.fullrandom.model.DateRange
-import com.fullrandom.model.DayCalories
 import com.fullrandom.model.Meal
 import com.fullrandom.model.PreConsumedProduct
 import com.fullrandom.model.Product
@@ -16,7 +15,7 @@ interface CaloriesRepository {
     fun searchProduct(query: String): Flow<List<Product>>
 
     suspend fun saveConsumedCalories(mealId: String, products: List<PreConsumedProduct>)
-    fun observeConsumedCalories(range: DateRange): Flow<List<DayCalories>>
+    fun observeConsumedCalories(range: DateRange): Flow<List<ConsumedMeal>>
 
     fun observeAvailableProducts(): Flow<List<Product>>
 

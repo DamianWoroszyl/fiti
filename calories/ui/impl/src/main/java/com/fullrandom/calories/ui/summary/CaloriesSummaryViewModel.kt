@@ -8,6 +8,7 @@ import com.fullrandom.calories.domain.ObserveCaloriesUseCase
 import com.fullrandom.calories.domain.assistant.VoiceAssistantStartTalkUseCase
 import com.fullrandom.calories.ui.api.CaloriesUiNavKeys
 import com.fullrandom.fiti.core.ui.api.navigation.Navigator
+import com.fullrandom.model.ConsumedMeal
 import com.fullrandom.model.ConsumedProduct
 import com.fullrandom.model.DateRange
 import dagger.assisted.Assisted
@@ -52,8 +53,8 @@ class CaloriesSummaryViewModel @AssistedInject constructor(
         viewModelScope.launch {
             val today = LocalDate.now()
             val dateRange = DateRange(today, today)
-            observeCaloriesUseCase(dateRange).collect { dayCaloriesList ->
-                _consumedProducts.value = dayCaloriesList.flatMap { it.consumedProducts }
+            observeCaloriesUseCase(dateRange).collect { consumedMeals: List<ConsumedMeal> ->
+                _consumedProducts.value = consumedMeals.flatMap { it.products }
             }
         }
     }
