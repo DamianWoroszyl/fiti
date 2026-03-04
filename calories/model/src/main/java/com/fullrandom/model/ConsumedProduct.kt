@@ -4,8 +4,7 @@ import java.time.LocalDate
 
 /**
  * @param id - id of that particular consumption
- * @param mealId - id of the meal it was consumed for
- * @param order - order of consumption in meal
+ * @param order - order of consumption in meal or dish
  * @param date - date of consumption
  * @param product - consumed product data
  * @param amountGrams - consumed amount in grams
@@ -17,7 +16,6 @@ import java.time.LocalDate
  */
 data class ConsumedProduct(
     val id: String,
-    val mealId: String,
     val order: Int,
     val date: LocalDate,
     val product: Product?,

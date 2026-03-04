@@ -12,7 +12,7 @@ interface CaloriesStorage {
     suspend fun saveProduct(product: Product)
     suspend fun deleteProduct(id: String)
     suspend fun getProduct(id: String): Product?
-    suspend fun saveConsumedCalories(products: List<ConsumedProduct>)
+    suspend fun saveConsumedCalories(mealId: String, products: List<ConsumedProduct>)
     fun observeConsumedCalories(range: DateRange): Flow<List<DayCalories>>
     fun observeAvailableProducts(): Flow<List<Product>>
     fun searchProduct(query: String): Flow<List<Product>>

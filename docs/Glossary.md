@@ -17,4 +17,8 @@
 
 **Meal** - an occasion when food is eaten. A day is split into several configured meals. During a meal products and dishes can be consumed
 
-**Consumed Meal** - a meal consumed on particular day, with particular set of Consumed Products and Consumed Dishes 
+**Consumed Meal** - a meal consumed on particular day, with particular set of Consumed Products and Consumed Dishes
+
+### Consumption
+Relation between Consumed Products and Consumed Meal or Consumed Dish should be set in data
+source, probably SQL DB as many to many relation
