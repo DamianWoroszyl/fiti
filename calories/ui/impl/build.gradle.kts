@@ -21,6 +21,7 @@ dependencies {
     implementation(project(":calories:assistant:api"))
     implementation(project(":calories:assistant:impl"))
     implementation(project(":core:ui:api"))
+    implementation(project(":core:ui:impl"))
 
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.navigation3.runtime)
@@ -36,6 +37,7 @@ dependencies {
 
     implementation(libs.androidx.material3)
     implementation(libs.androidx.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 

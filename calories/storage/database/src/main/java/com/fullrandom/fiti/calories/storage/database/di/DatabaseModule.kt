@@ -3,6 +3,7 @@ package com.fullrandom.fiti.calories.storage.database.di
 import android.content.Context
 import com.fullrandom.fiti.calories.storage.database.dao.ConsumedProductDao
 import com.fullrandom.fiti.calories.storage.database.dao.MealDao
+import com.fullrandom.fiti.calories.storage.database.dao.MealToConsumedProductDao
 import com.fullrandom.fiti.calories.storage.database.dao.ProductDao
 import com.fullrandom.fiti.calories.storage.database.db.CaloriesDatabase
 import dagger.Module
@@ -41,5 +42,12 @@ object DatabaseModule {
         caloriesDatabase: CaloriesDatabase
     ): ProductDao {
         return caloriesDatabase.productDao()
+    }
+
+    @Provides
+    internal fun provideMealToConsumedProductDao(
+        caloriesDatabase: CaloriesDatabase
+    ): MealToConsumedProductDao {
+        return caloriesDatabase.mealToConsumedProductDao()
     }
 }

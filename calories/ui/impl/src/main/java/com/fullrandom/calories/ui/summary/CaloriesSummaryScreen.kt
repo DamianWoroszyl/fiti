@@ -214,7 +214,7 @@ fun ConsumedProductItem(consumedProduct: ConsumedProduct) {
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = "Amount: ${consumedProduct.amountGrams}g")
-            Text(text = "Kcal: ${consumedProduct.kcal.toInt()}")
+            Text(text = "Kcal: ${consumedProduct.kcalPer100g.toInt()}")
             consumedProduct.product?.let {
                 // Text(text = "Brand: ${it.brand ?: "N/A"}")
             }
@@ -246,17 +246,16 @@ fun CaloriesSummaryScreenContentResultPreview() {
     val product1 = Product("p1", "Apple", 14.0, 0.2, 0.3, 52.0)
     val previewConsumedProducts = listOf(
         ConsumedProduct(
-            "cp1",
-            "mealA",
-            0,
-            LocalDate.now(),
-            product1,
-            150.0,
-            product1.name,
-            product1.carbohydrates * 1.5,
-            product1.fat * 1.5,
-            product1.protein * 1.5,
-            product1.kcal * 1.5
+            id = "cp1",
+            order = 0,
+            date = LocalDate.now(),
+            product = product1,
+            amountGrams = 150.0,
+            productName = product1.name,
+            carbohydratesPer100g = product1.carbohydratesPer100g * 1.5,
+            fatPer100g = product1.fatPer100g * 1.5,
+            proteinPer100g = product1.proteinPer100g * 1.5,
+            kcalPer100g = product1.kcalPer100g * 1.5,
         ),
     )
     MaterialTheme {

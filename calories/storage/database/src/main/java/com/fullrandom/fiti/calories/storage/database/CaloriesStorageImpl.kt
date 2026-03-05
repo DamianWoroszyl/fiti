@@ -2,15 +2,16 @@ package com.fullrandom.fiti.calories.storage.database
 
 import com.fullrandom.fiti.calories.storage.database.dao.ConsumedProductDao
 import com.fullrandom.fiti.calories.storage.database.dao.MealDao
+import com.fullrandom.fiti.calories.storage.database.dao.MealToConsumedProductDao
 import com.fullrandom.fiti.calories.storage.database.dao.ProductDao
 import com.fullrandom.fiti.calories.storage.database.entity.ConsumedProductEntity
 import com.fullrandom.fiti.calories.storage.database.entity.MealEntity
+import com.fullrandom.fiti.calories.storage.database.entity.MealToConsumedProductEntity
 import com.fullrandom.fiti.calories.storage.database.entity.ProductEntity
 import com.fullrandom.fiti.calories.storage.database.entity.toDomain
 import com.fullrandom.fiti.storage.api.CaloriesStorage
 import com.fullrandom.model.ConsumedProduct
 import com.fullrandom.model.DateRange
-import com.fullrandom.model.DayCalories
 import com.fullrandom.model.Meal
 import com.fullrandom.model.Product
 import kotlinx.coroutines.flow.Flow
@@ -20,77 +21,81 @@ internal class CaloriesStorageImpl(
     private val consumedProductDao: ConsumedProductDao,
     private val productDao: ProductDao,
     private val mealDao: MealDao,
+    private val mealToConsumedProductDao: MealToConsumedProductDao,
 ) : CaloriesStorage {
 
     override suspend fun saveProduct(product: Product) {
         productDao.insert(ProductEntity.fromDomain(product))
     }
 
-    override suspend fun saveConsumedCalories(
-        products: List<ConsumedProduct>
-    ) {
-        consumedProductDao.insert(
-            consumedProducts = products.map { ConsumedProductEntity.fromDomain(it) }
+    override suspend fun deleteProduct(id: String) {
+        productDao.delete(id)
+    }
+
+    override suspend fun getProduct(id: String): Product? {
+        return productDao.getById(id)?.toDomain()
+    }
+
+    override suspend fun saveConsumedCalories(mealId: String, products: List<ConsumedProduct>) {
+        consumedProductDao.insert(products.map { ConsumedProductEntity.fromDomain(it) })
+        mealToConsumedProductDao.insert(
+            products.map { MealToConsumedProductEntity(mealId = mealId, productId = it.id) }
         )
     }
 
-    override fun observeConsumedCalories(
-        range: DateRange
-    ): Flow<List<DayCalories>> {
+    override fun observeConsumedProducts(range: DateRange): Flow<List<ConsumedProduct>> {
         return consumedProductDao.getByDateRange(range.start, range.end)
-            .map { entities ->
-                val products: List<Product> = entities.mapNotNull { it.productId }
+            .map { consumedProductEntities: List<ConsumedProductEntity> ->
+                val productById: Map<String, Product> = consumedProductEntities
+                    .mapNotNull { consumedProductEntity: ConsumedProductEntity -> consumedProductEntity.productId }
                     .distinct()
-                    .mapNotNull { productId ->
-                        productDao.getById(productId)?.toDomain()
-                    }
+                    .mapNotNull { productId: String -> productDao.getById(productId)?.toDomain() }
+                    .associateBy { product: Product -> product.id }
 
-                val consumedProduct = entities.map {
-                    val product = products.find { product -> product.id == it.productId }
-
+                consumedProductEntities.map { consumedProductEntity: ConsumedProductEntity ->
+                    val resolvedProduct: Product? = productById[consumedProductEntity.productId]
                     ConsumedProduct(
-                        id = it.id,
-                        mealId = it.mealId,
-                        productName = product?.name ?: it.productName,
-                        order = it.order,
-                        date = it.date,
-                        amountGrams = it.amountGrams,
-                        product = product,
-                        carbohydrates = it.carbohydrates,
-                        fat = it.fat,
-                        protein = it.protein,
-                        kcal = it.kcal,
+                        id = consumedProductEntity.id,
+                        order = consumedProductEntity.order,
+                        date = consumedProductEntity.date,
+                        amountGrams = consumedProductEntity.amountGrams,
+                        product = resolvedProduct,
+                        productName = resolvedProduct?.name ?: consumedProductEntity.productName,
+                        carbohydratesPer100g = resolvedProduct?.carbohydratesPer100g ?: consumedProductEntity.carbohydratesPer100g,
+                        fatPer100g = resolvedProduct?.fatPer100g ?: consumedProductEntity.fatPer100g,
+                        proteinPer100g = resolvedProduct?.proteinPer100g ?: consumedProductEntity.proteinPer100g,
+                        kcalPer100g = resolvedProduct?.kcalPer100g ?: consumedProductEntity.kcalPer100g,
                     )
                 }
+            }
+    }
 
-                val dates = entities.map { it.date }.distinct()
-
-                dates.map {
-                    DayCalories(
-                        date = it,
-                        consumedProducts = consumedProduct.filter { product -> product.date == it }
-                    )
-                }
+    override fun observeMealToConsumedProductAssignments(range: DateRange): Flow<Map<String, List<String>>> {
+        return mealToConsumedProductDao.observeByDateRange(range.start, range.end)
+            .map { joinEntities: List<MealToConsumedProductEntity> ->
+                joinEntities
+                    .groupBy { joinEntity: MealToConsumedProductEntity -> joinEntity.mealId }
+                    .mapValues { (_, joinEntitiesForMeal: List<MealToConsumedProductEntity>) ->
+                        joinEntitiesForMeal.map { joinEntity: MealToConsumedProductEntity -> joinEntity.productId }
+                    }
             }
     }
 
     override fun observeAvailableProducts(): Flow<List<Product>> {
-        return productDao.getAll().map { entities ->
-            entities.map { it.toDomain() }
+        return productDao.getAll().map { productEntities: List<ProductEntity> ->
+            productEntities.map { productEntity: ProductEntity -> productEntity.toDomain() }
         }
     }
 
     override fun searchProduct(query: String): Flow<List<Product>> {
-        return productDao.searchByName(query).map { entities ->
-            entities.map { it.toDomain() }
+        return productDao.searchByName(query).map { productEntities: List<ProductEntity> ->
+            productEntities.map { productEntity: ProductEntity -> productEntity.toDomain() }
         }
     }
 
     override fun observeMeals(): Flow<List<Meal>> {
-        return mealDao.observeAll().map { mealEntityList ->
-            mealEntityList.map { mealEntity ->
-                mealEntity.toDomain()
-            }
+        return mealDao.observeAll().map { mealEntities: List<MealEntity> ->
+            mealEntities.map { mealEntity: MealEntity -> mealEntity.toDomain() }
         }
     }
 
@@ -99,10 +104,8 @@ internal class CaloriesStorageImpl(
     }
 
     override fun searchMeal(query: String): Flow<List<Meal>> {
-        return mealDao.searchByName(query).map { mealEntityList ->
-            mealEntityList.map { mealEntity ->
-                mealEntity.toDomain()
-            }
+        return mealDao.searchByName(query).map { mealEntities: List<MealEntity> ->
+            mealEntities.map { mealEntity: MealEntity -> mealEntity.toDomain() }
         }
     }
 }

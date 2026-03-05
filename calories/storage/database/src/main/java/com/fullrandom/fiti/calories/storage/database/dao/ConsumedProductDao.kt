@@ -29,9 +29,6 @@ internal interface ConsumedProductDao {
     @Query("SELECT * FROM consumed_product WHERE date = :date")
     fun getByDate(date: LocalDate): Flow<List<ConsumedProductEntity>>
 
-    @Query("SELECT * FROM consumed_product WHERE meal_id = :mealId")
-    fun getByMealId(mealId: String): Flow<List<ConsumedProductEntity>>
-
     @Query("SELECT * FROM consumed_product WHERE date BETWEEN :startDate AND :endDate")
     fun getByDateRange(startDate: LocalDate, endDate: LocalDate): Flow<List<ConsumedProductEntity>>
 }
