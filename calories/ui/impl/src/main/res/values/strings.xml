@@ -13,6 +13,7 @@
     <string name="product_details_save_error_fallback">Failed to save. Please try again.</string>
     <string name="cd_back">Back</string>
     <string name="summary_screen_title">Calories Summary</string>
+    <string name="summary_button_create_product">New product</string>
     <string name="summary_day_today">Today</string>
     <string name="summary_day_tomorrow">Tomorrow</string>
     <string name="summary_meal_kcal">%1$.0f kcal</string>

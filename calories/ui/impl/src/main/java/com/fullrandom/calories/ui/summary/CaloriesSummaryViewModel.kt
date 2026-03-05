@@ -5,13 +5,15 @@ import androidx.lifecycle.viewModelScope
 import com.fullrandom.calories.assistant.api.CaloriesAssistant
 import com.fullrandom.calories.assistant.api.SpeechEvent
 import com.fullrandom.calories.domain.ObserveCaloriesUseCase
+import com.fullrandom.calories.domain.ObserveMealsUseCase
 import com.fullrandom.calories.domain.SearchProductUseCase
-import com.fullrandom.calories.domain.assistant.VoiceAssistantStartTalkUseCase
+import com.fullrandom.calories.domain.SummaryDayCaloriesMapper
 import com.fullrandom.calories.ui.api.CaloriesUiNavKeys
 import com.fullrandom.calories.ui.api.CaloriesUiNavKeys.ProductDetailsScreenNavKey.AddTarget
 import com.fullrandom.fiti.core.ui.api.navigation.Navigator
 import com.fullrandom.model.ConsumedMeal
 import com.fullrandom.model.DateRange
+import com.fullrandom.model.DayCalories
 import com.fullrandom.model.Meal
 import com.fullrandom.model.Product
 import dagger.assisted.Assisted
@@ -20,6 +22,7 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -28,18 +31,19 @@ import java.time.LocalDate
 class CaloriesSummaryViewModel @AssistedInject constructor(
     @Assisted private val navKey: CaloriesUiNavKeys.SummaryScreenNavKey,
     private val observeCaloriesUseCase: ObserveCaloriesUseCase,
+    private val observeMealsUseCase: ObserveMealsUseCase,
     private val searchProductUseCase: SearchProductUseCase,
-    private val voiceAssistantCallNowUseCase: VoiceAssistantStartTalkUseCase,
+    private val summaryDayCaloriesMapper: SummaryDayCaloriesMapper,
     private val navigator: Navigator,
     private val caloriesAssistant: CaloriesAssistant,
 ) : ViewModel() {
 
     val weekDays: List<LocalDate> = (0L..6L).map { offset: Long -> LocalDate.now().plusDays(offset) }
 
-    private val _mealsPerDay = MutableStateFlow<Map<LocalDate, List<ConsumedMeal>>>(
-        weekDays.associateWith { emptyList() }
+    private val _weekCalories = MutableStateFlow<List<DayCalories>>(
+        weekDays.map { day: LocalDate -> DayCalories(date = day, consumedMeals = emptyList()) }
     )
-    val mealsPerDay: StateFlow<Map<LocalDate, List<ConsumedMeal>>> = _mealsPerDay
+    val weekCalories: StateFlow<List<DayCalories>> = _weekCalories
 
     private val _finalRecognizedText = MutableStateFlow<String?>(null)
     val finalRecognizedText: StateFlow<String?> = _finalRecognizedText
@@ -61,10 +65,13 @@ class CaloriesSummaryViewModel @AssistedInject constructor(
     private fun loadWeekCalories() {
         viewModelScope.launch {
             val range = DateRange(weekDays.first(), weekDays.last())
-            observeCaloriesUseCase(range).collect { consumedMeals: List<ConsumedMeal> ->
-                _mealsPerDay.value = weekDays.associateWith { day: LocalDate ->
-                    consumedMeals.filter { consumedMeal: ConsumedMeal -> consumedMeal.date == day }
-                }
+            combine(
+                observeCaloriesUseCase(range),
+                observeMealsUseCase(),
+            ) { consumedMeals: List<ConsumedMeal>, allMeals: List<Meal> ->
+                summaryDayCaloriesMapper.map(weekDays, allMeals, consumedMeals)
+            }.collect { weekCalories: List<DayCalories> ->
+                _weekCalories.value = weekCalories
             }
         }
     }
@@ -101,8 +108,8 @@ class CaloriesSummaryViewModel @AssistedInject constructor(
         }
     }
 
-    fun onAddConsumedProductClicked() {
-//        navigator.navigateToAddConsumedProduct()
+    fun onCreateProductClicked() {
+        navigator.navigate(CaloriesUiNavKeys.ProductEditNavKey())
     }
 
     fun onTalkWithAssistantClicked() {

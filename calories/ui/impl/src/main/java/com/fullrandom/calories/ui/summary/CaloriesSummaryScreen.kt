@@ -41,6 +41,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fullrandom.fiti.calories.ui.impl.R
 import com.fullrandom.model.ConsumedMeal
+import com.fullrandom.model.DayCalories
 import com.fullrandom.model.Meal
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -55,7 +56,7 @@ fun CaloriesSummaryScreen(
     val finalRecognizedText by viewModel.finalRecognizedText.collectAsState()
     val partialSpeechDisplay by viewModel.partialSpeechDisplay.collectAsState()
     val lastError by viewModel.lastError.collectAsState()
-    val mealsPerDay by viewModel.mealsPerDay.collectAsState()
+    val weekCalories by viewModel.weekCalories.collectAsState()
 
     var hasAudioPermission by remember { mutableStateOf(false) }
     val context = LocalContext.current
@@ -86,8 +87,7 @@ fun CaloriesSummaryScreen(
     }
 
     CaloriesSummaryScreenContent(
-        weekDays = viewModel.weekDays,
-        mealsPerDay = mealsPerDay,
+        weekCalories = weekCalories,
         recognizedSpeechText = finalRecognizedText,
         partialSpeechText = partialSpeechDisplay,
         hasAudioPermission = hasAudioPermission,
@@ -95,11 +95,11 @@ fun CaloriesSummaryScreen(
         onToggleSpeechRecognition = onToggleListeningClick,
         onClearRecognizedText = { viewModel.clearRecognizedTextFromVm() },
         onMealClicked = { meal: Meal, date: LocalDate -> viewModel.onMealClicked(meal, date) },
+        onCreateProductClicked = { viewModel.onCreateProductClicked() },
     )
 
     if (lastError != null) {
         // Show snackbar or text with error: lastError
-        // And an option to dismiss it, e.g., viewModel.clearLastSpeechError()
     }
 }
 
@@ -121,8 +121,7 @@ fun getErrorText(errorCode: Int): String {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CaloriesSummaryScreenContent(
-    weekDays: List<LocalDate>,
-    mealsPerDay: Map<LocalDate, List<ConsumedMeal>>,
+    weekCalories: List<DayCalories>,
     recognizedSpeechText: String?,
     partialSpeechText: String?,
     isListening: Boolean,
@@ -130,6 +129,7 @@ fun CaloriesSummaryScreenContent(
     onToggleSpeechRecognition: () -> Unit,
     onClearRecognizedText: () -> Unit,
     onMealClicked: (Meal, LocalDate) -> Unit,
+    onCreateProductClicked: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -145,9 +145,12 @@ fun CaloriesSummaryScreenContent(
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
+                Button(onClick = onCreateProductClicked) {
+                    Text(stringResource(R.string.summary_button_create_product))
+                }
                 Button(onClick = onToggleSpeechRecognition) {
                     Text(
                         if (isListening) {
@@ -186,19 +189,17 @@ fun CaloriesSummaryScreenContent(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            val pagerState = rememberPagerState(pageCount = { weekDays.size })
+            val pagerState = rememberPagerState(pageCount = { weekCalories.size })
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
             ) { pageIndex: Int ->
-                val day: LocalDate = weekDays[pageIndex]
-                val meals: List<ConsumedMeal> = mealsPerDay[day] ?: emptyList()
+                val dayCalories: DayCalories = weekCalories[pageIndex]
                 DayPage(
                     pageIndex = pageIndex,
-                    day = day,
-                    meals = meals,
+                    dayCalories = dayCalories,
                     onMealClicked = onMealClicked,
                 )
             }
@@ -209,8 +210,7 @@ fun CaloriesSummaryScreenContent(
 @Composable
 private fun DayPage(
     pageIndex: Int,
-    day: LocalDate,
-    meals: List<ConsumedMeal>,
+    dayCalories: DayCalories,
     onMealClicked: (Meal, LocalDate) -> Unit,
 ) {
     Column(
@@ -221,7 +221,7 @@ private fun DayPage(
         val dayHeader: String = when (pageIndex) {
             0 -> stringResource(R.string.summary_day_today)
             1 -> stringResource(R.string.summary_day_tomorrow)
-            else -> DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(day)
+            else -> DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(dayCalories.date)
         }
         Text(
             text = dayHeader,
@@ -229,7 +229,7 @@ private fun DayPage(
             modifier = Modifier.padding(vertical = 8.dp),
         )
 
-        if (meals.isEmpty()) {
+        if (dayCalories.consumedMeals.isEmpty()) {
             Text(
                 text = stringResource(R.string.summary_no_meals),
                 style = MaterialTheme.typography.bodyMedium,
@@ -239,10 +239,10 @@ private fun DayPage(
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                items(meals, key = { it.meal.id }) { consumedMeal: ConsumedMeal ->
+                items(dayCalories.consumedMeals, key = { it.meal.id }) { consumedMeal: ConsumedMeal ->
                     MealCard(
                         consumedMeal = consumedMeal,
-                        onClick = { onMealClicked(consumedMeal.meal, day) },
+                        onClick = { onMealClicked(consumedMeal.meal, dayCalories.date) },
                     )
                 }
             }
