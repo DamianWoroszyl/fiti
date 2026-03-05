@@ -5,9 +5,9 @@ import android.content.pm.PackageManager
 import android.speech.SpeechRecognizer
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,30 +35,31 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.fullrandom.model.ConsumedProduct
-import com.fullrandom.model.Product
+import com.fullrandom.fiti.calories.ui.impl.R
+import com.fullrandom.model.ConsumedMeal
+import com.fullrandom.model.Meal
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 private const val TAG = "CaloriesSummaryScreen"
+
 @Composable
 fun CaloriesSummaryScreen(
     viewModel: CaloriesSummaryViewModel = viewModel()
 ) {
     val finalRecognizedText by viewModel.finalRecognizedText.collectAsState()
     val partialSpeechDisplay by viewModel.partialSpeechDisplay.collectAsState()
-    val lastError by viewModel.lastError.collectAsState() // For displaying errors
-
-    // Example state for other parts of your UI, if used by CaloriesSummaryScreenContent
-    val consumedProducts = remember { listOf<ConsumedProduct>() } // Placeholder
+    val lastError by viewModel.lastError.collectAsState()
+    val mealsPerDay by viewModel.mealsPerDay.collectAsState()
 
     var hasAudioPermission by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
-    // Check initial permission status
     LaunchedEffect(Unit) {
         hasAudioPermission = ContextCompat.checkSelfPermission(
             context,
@@ -66,13 +69,10 @@ fun CaloriesSummaryScreen(
 
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
-        onResult = { isGranted ->
+        onResult = { isGranted: Boolean ->
             hasAudioPermission = isGranted
-            if (!isGranted) {
-            } else {
-                // Permission granted, user might need to tap button again if they tapped before
-                // Or you could trigger startListening if an intent was pending
-                viewModel.clearLastSpeechError() // Clear permission error if it was set
+            if (isGranted) {
+                viewModel.clearLastSpeechError()
             }
         }
     )
@@ -86,24 +86,22 @@ fun CaloriesSummaryScreen(
     }
 
     CaloriesSummaryScreenContent(
-        consumedProducts = consumedProducts,
+        weekDays = viewModel.weekDays,
+        mealsPerDay = mealsPerDay,
         recognizedSpeechText = finalRecognizedText,
         partialSpeechText = partialSpeechDisplay,
         hasAudioPermission = hasAudioPermission,
-        onAddConsumedProductClicked = { viewModel.onAddConsumedProductClicked() },
-        onTalkWithAssistantClicked = { viewModel.onTalkWithAssistantClicked() },
+        isListening = viewModel.listeningState,
         onToggleSpeechRecognition = onToggleListeningClick,
         onClearRecognizedText = { viewModel.clearRecognizedTextFromVm() },
-        isListening = viewModel.listeningState
+        onMealClicked = { meal: Meal, date: LocalDate -> viewModel.onMealClicked(meal, date) },
     )
 
-    // You might want a Snackbar or a Text element to display viewModel.lastError
     if (lastError != null) {
         // Show snackbar or text with error: lastError
         // And an option to dismiss it, e.g., viewModel.clearLastSpeechError()
     }
 }
-
 
 fun getErrorText(errorCode: Int): String {
     return when (errorCode) {
@@ -120,82 +118,132 @@ fun getErrorText(errorCode: Int): String {
     }
 }
 
-/**
- * Stateless Composable that displays the UI based on the provided state.
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CaloriesSummaryScreenContent(
-    consumedProducts: List<ConsumedProduct>,
+    weekDays: List<LocalDate>,
+    mealsPerDay: Map<LocalDate, List<ConsumedMeal>>,
     recognizedSpeechText: String?,
     partialSpeechText: String?,
     isListening: Boolean,
     hasAudioPermission: Boolean,
-    onAddConsumedProductClicked: () -> Unit,
-    onTalkWithAssistantClicked: () -> Unit,
     onToggleSpeechRecognition: () -> Unit,
-    onClearRecognizedText: () -> Unit
+    onClearRecognizedText: () -> Unit,
+    onMealClicked: (Meal, LocalDate) -> Unit,
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Calories Summary") })
+            TopAppBar(title = { Text(stringResource(R.string.summary_screen_title)) })
         }
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Button(onClick = onAddConsumedProductClicked) { Text("Add Product") }
-                Button(onClick = onTalkWithAssistantClicked) { Text("Assistant") }
-                Button(
-                    onClick = onToggleSpeechRecognition,
-                ) {
-                    Text(if (isListening) "Stop Listening" else if (hasAudioPermission) "Start Dictation" else "Grant Mic & Speak")
+                Button(onClick = onToggleSpeechRecognition) {
+                    Text(
+                        if (isListening) {
+                            stringResource(R.string.summary_button_stop_listening)
+                        } else if (hasAudioPermission) {
+                            stringResource(R.string.summary_button_start_dictation)
+                        } else {
+                            stringResource(R.string.summary_button_grant_mic)
+                        }
+                    )
                 }
             }
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            // Display partial or final recognized text
-            val currentSpeechDisplay = partialSpeechText ?: recognizedSpeechText
+            val currentSpeechDisplay: String? = partialSpeechText ?: recognizedSpeechText
             if (!currentSpeechDisplay.isNullOrEmpty()) {
                 Text(
-                    text = if (isListening && !partialSpeechText.isNullOrEmpty()) "Heard: $partialSpeechText" else "You said: $recognizedSpeechText",
-                    style = MaterialTheme.typography.bodyLarge
+                    text = if (isListening && !partialSpeechText.isNullOrEmpty()) {
+                        stringResource(R.string.summary_speech_heard, partialSpeechText)
+                    } else {
+                        stringResource(R.string.summary_speech_said, recognizedSpeechText.orEmpty())
+                    },
+                    style = MaterialTheme.typography.bodyLarge,
                 )
-                if (!recognizedSpeechText.isNullOrEmpty() && !isListening) { // Show clear only for final results
+                if (!recognizedSpeechText.isNullOrEmpty() && !isListening) {
                     Button(
                         onClick = onClearRecognizedText,
-                        modifier = Modifier.padding(top = 4.dp)
+                        modifier = Modifier.padding(top = 4.dp),
                     ) {
-                        Text("Clear Speech")
+                        Text(stringResource(R.string.summary_button_clear_speech))
                     }
                 }
                 Spacer(modifier = Modifier.height(10.dp))
             }
 
+            Spacer(modifier = Modifier.height(8.dp))
 
-            Spacer(modifier = Modifier.height(16.dp))
-            // ... Rest of the UI (LazyColumn for consumedProducts) ...
-            if (consumedProducts.isEmpty() && (recognizedSpeechText.isNullOrEmpty() && partialSpeechText.isNullOrEmpty())) {
-                Text("No products consumed today.")
-            } else if (consumedProducts.isNotEmpty()) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentPadding = PaddingValues(vertical = 8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(consumedProducts, key = { it.id }) { product ->
-                        ConsumedProductItem(product)
-                    }
+            val pagerState = rememberPagerState(pageCount = { weekDays.size })
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+            ) { pageIndex: Int ->
+                val day: LocalDate = weekDays[pageIndex]
+                val meals: List<ConsumedMeal> = mealsPerDay[day] ?: emptyList()
+                DayPage(
+                    pageIndex = pageIndex,
+                    day = day,
+                    meals = meals,
+                    onMealClicked = onMealClicked,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DayPage(
+    pageIndex: Int,
+    day: LocalDate,
+    meals: List<ConsumedMeal>,
+    onMealClicked: (Meal, LocalDate) -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 4.dp),
+    ) {
+        val dayHeader: String = when (pageIndex) {
+            0 -> stringResource(R.string.summary_day_today)
+            1 -> stringResource(R.string.summary_day_tomorrow)
+            else -> DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(day)
+        }
+        Text(
+            text = dayHeader,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(vertical = 8.dp),
+        )
+
+        if (meals.isEmpty()) {
+            Text(
+                text = stringResource(R.string.summary_no_meals),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        } else {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                items(meals, key = { it.meal.id }) { consumedMeal: ConsumedMeal ->
+                    MealCard(
+                        consumedMeal = consumedMeal,
+                        onClick = { onMealClicked(consumedMeal.meal, day) },
+                    )
                 }
             }
         }
@@ -203,72 +251,33 @@ fun CaloriesSummaryScreenContent(
 }
 
 @Composable
-fun ConsumedProductItem(consumedProduct: ConsumedProduct) {
+private fun MealCard(
+    consumedMeal: ConsumedMeal,
+    onClick: () -> Unit,
+) {
+    val totalKcal: Double = consumedMeal.products.sumOf { it.kcalPer100g * it.amountGrams / 100.0 }
+    val productCount: Int = consumedMeal.products.size
+
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = consumedProduct.productName,
-                style = MaterialTheme.typography.titleMedium
+                text = consumedMeal.meal.name,
+                style = MaterialTheme.typography.titleMedium,
             )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = "Amount: ${consumedProduct.amountGrams}g")
-            Text(text = "Kcal: ${consumedProduct.kcalPer100g.toInt()}")
-            consumedProduct.product?.let {
-                // Text(text = "Brand: ${it.brand ?: "N/A"}")
-            }
+            Text(
+                text = stringResource(R.string.summary_meal_kcal, totalKcal),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Text(
+                text = stringResource(R.string.summary_meal_products_count, productCount),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
-    }
-}
-
-@Preview(showBackground = true, name = "Content - Listening")
-@Composable
-fun CaloriesSummaryScreenContentListeningPreview() {
-    MaterialTheme {
-        CaloriesSummaryScreenContent(
-            consumedProducts = emptyList(),
-            recognizedSpeechText = null,
-            partialSpeechText = "Listening for food...",
-            isListening = true,
-            hasAudioPermission = true,
-            onAddConsumedProductClicked = {},
-            onTalkWithAssistantClicked = {},
-            onToggleSpeechRecognition = {},
-            onClearRecognizedText = {}
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Content - Result")
-@Composable
-fun CaloriesSummaryScreenContentResultPreview() {
-    val product1 = Product("p1", "Apple", 14.0, 0.2, 0.3, 52.0)
-    val previewConsumedProducts = listOf(
-        ConsumedProduct(
-            id = "cp1",
-            order = 0,
-            date = LocalDate.now(),
-            product = product1,
-            amountGrams = 150.0,
-            productName = product1.name,
-            carbohydratesPer100g = product1.carbohydratesPer100g * 1.5,
-            fatPer100g = product1.fatPer100g * 1.5,
-            proteinPer100g = product1.proteinPer100g * 1.5,
-            kcalPer100g = product1.kcalPer100g * 1.5,
-        ),
-    )
-    MaterialTheme {
-        CaloriesSummaryScreenContent(
-            consumedProducts = previewConsumedProducts,
-            recognizedSpeechText = "One apple and two bananas",
-            partialSpeechText = null,
-            isListening = false,
-            hasAudioPermission = true,
-            onAddConsumedProductClicked = {},
-            onTalkWithAssistantClicked = {},
-            onToggleSpeechRecognition = {},
-            onClearRecognizedText = {}
-        )
     }
 }

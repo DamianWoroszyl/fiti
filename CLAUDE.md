@@ -25,6 +25,9 @@ Fiti is an Android calorie-tracking app with voice assistant integration, built 
 # General rules
 - don't try to launch the app on emulator or on a physical device
 - be explicit when it comes to naming variables and adding type information
+- don't short variable names, always use full words. Never use single letter variable names (unless it's i/j/k in loops)
+- split logic to functions if steps are separate enough.
+  - especially don't create large init blocks - split init steps into functions 
 
 # Architecture
 This project is a modern Android application that follows the official architecture guidance from Google. It is a reactive, single-activity app that uses the following:
@@ -69,6 +72,9 @@ All modules use convention plugins instead of repeating build config:
 5. Add Hilt `@Module` in impl module to bind API → impl
 
 **UI:** Always use string resources, never add plain strings to be displayed to users
+
+**Layers:**
+- always use ui->domain->data separation. Never query data directly from data layers, always use use-cases
 
 ## Dependencies & Versions
 

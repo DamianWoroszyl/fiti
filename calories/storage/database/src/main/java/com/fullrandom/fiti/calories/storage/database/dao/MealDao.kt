@@ -22,6 +22,9 @@ internal interface MealDao {
     @Query("SELECT * FROM meal WHERE id = :id LIMIT 1")
     fun getById(id: String): Flow<MealEntity?>
 
+    @Query("SELECT * FROM meal WHERE id = :id LIMIT 1")
+    suspend fun findById(id: String): MealEntity?
+
     @Query("SELECT * FROM meal ORDER BY `order` ASC")
     fun observeAll(): Flow<List<MealEntity>>
 

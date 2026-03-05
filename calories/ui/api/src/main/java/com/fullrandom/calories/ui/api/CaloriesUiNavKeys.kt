@@ -3,9 +3,6 @@ package com.fullrandom.calories.ui.api
 import com.fullrandom.fiti.core.ui.api.navigation.FitiNavKey
 import kotlinx.serialization.Serializable
 
-@Serializable
-enum class AddTargetType { MEAL, DISH }
-
 object CaloriesUiNavKeys {
 
     @Serializable
@@ -14,9 +11,18 @@ object CaloriesUiNavKeys {
     @Serializable
     data class ProductDetailsScreenNavKey(
         val productId: String,
-        val targetId: String? = null,
-        val targetType: AddTargetType? = null,
-    ) : FitiNavKey
+        val addTarget: AddTarget? = null,
+    ) : FitiNavKey {
+
+        @Serializable
+        sealed class AddTarget {
+            @Serializable
+            data class MealTarget(val mealId: String, val date: Long) : AddTarget()
+
+            @Serializable
+            data class DishVariantTarget(val dishVariantId: String) : AddTarget()
+        }
+    }
 
     @Serializable
     data class ProductEditNavKey(

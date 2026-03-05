@@ -1,5 +1,16 @@
 # Architectural decisions record
 
+## 4. Never catch broad exceptions
+
+### decision
+Don't use runCatching (kotlin syntactic sugar) or catch Throwable/Exception. If you have to - make sure to rethrow CancellationExceptions.
+
+### context
+The app should be stable, but not at cost of being unaware of what's going wrong.
+We also use Kotlin Coroutines, which should be always kept in mind in this context.
+
+
+
 ## 3. Compose screens should be plain Composables, without and Scaffolds
 
 ### decision
