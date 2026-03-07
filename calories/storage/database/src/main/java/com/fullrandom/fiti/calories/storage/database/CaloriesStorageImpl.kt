@@ -36,11 +36,12 @@ internal class CaloriesStorageImpl(
         return productDao.getById(id)?.toDomain()
     }
 
-    override suspend fun saveConsumedCalories(mealId: String, products: List<ConsumedProduct>) {
+    override suspend fun saveConsumedCalories(mealId: String, products: List<ConsumedProduct>): Result<Unit> {
         consumedProductDao.insert(products.map { ConsumedProductEntity.fromDomain(it) })
         mealToConsumedProductDao.insert(
             products.map { MealToConsumedProductEntity(mealId = mealId, productId = it.id) }
         )
+        return Result.success(Unit)
     }
 
     override fun observeConsumedProducts(range: DateRange): Flow<List<ConsumedProduct>> {
@@ -87,8 +88,8 @@ internal class CaloriesStorageImpl(
         }
     }
 
-    override fun searchProduct(query: String): Flow<List<Product>> {
-        return productDao.searchByName(query).map { productEntities: List<ProductEntity> ->
+    override fun searchProduct(query: String, limit: Int): Flow<List<Product>> {
+        return productDao.searchByName(query, limit).map { productEntities: List<ProductEntity> ->
             productEntities.map { productEntity: ProductEntity -> productEntity.toDomain() }
         }
     }
@@ -107,5 +108,13 @@ internal class CaloriesStorageImpl(
         return mealDao.searchByName(query).map { mealEntities: List<MealEntity> ->
             mealEntities.map { mealEntity: MealEntity -> mealEntity.toDomain() }
         }
+    }
+
+    override fun observeMeal(id: String): Flow<Meal?> {
+        return mealDao.getById(id).map { mealEntity: MealEntity? -> mealEntity?.toDomain() }
+    }
+
+    override suspend fun getMeal(id: String): Meal? {
+        return mealDao.findById(id)?.toDomain()
     }
 }

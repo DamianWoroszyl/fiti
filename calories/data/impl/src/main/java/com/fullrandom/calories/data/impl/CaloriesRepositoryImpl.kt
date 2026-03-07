@@ -35,21 +35,21 @@ class CaloriesRepositoryImpl @Inject constructor(
         return caloriesStorage.getProduct(id)
     }
 
-    override suspend fun saveConsumedCalories(mealId: String, products: List<PreConsumedProduct>) {
-        caloriesStorage.saveConsumedCalories(
+    override suspend fun saveConsumedCalories(mealId: String, products: List<PreConsumedProduct>): Result<Unit> {
+        return caloriesStorage.saveConsumedCalories(
             mealId = mealId,
-            products = products.map { p ->
+            products = products.map { product: PreConsumedProduct ->
                 ConsumedProduct(
                     id = UUID.randomUUID().toString(),
-                    order = p.order,
-                    date = p.date,
-                    product = p.product,
-                    amountGrams = p.amountGrams,
-                    productName = p.product.name,
-                    carbohydratesPer100g = p.product.carbohydratesPer100g,
-                    fatPer100g = p.product.fatPer100g,
-                    proteinPer100g = p.product.proteinPer100g,
-                    kcalPer100g = p.product.kcalPer100g,
+                    order = product.order,
+                    date = product.date,
+                    product = product.product,
+                    amountGrams = product.amountGrams,
+                    productName = product.product.name,
+                    carbohydratesPer100g = product.product.carbohydratesPer100g,
+                    fatPer100g = product.product.fatPer100g,
+                    proteinPer100g = product.product.proteinPer100g,
+                    kcalPer100g = product.product.kcalPer100g,
                 )
             }
         )
@@ -66,17 +66,20 @@ class CaloriesRepositoryImpl @Inject constructor(
             val mealById: Map<String, Meal> =
                 allMeals.associateBy { meal: Meal -> meal.id }
 
-            consumedProductIdsByMealId.entries.mapNotNull { (mealId: String, consumedProductIds: List<String>) ->
-                val meal: Meal = mealById[mealId] ?: return@mapNotNull null
+            consumedProductIdsByMealId.entries.flatMap { (mealId: String, consumedProductIds: List<String>) ->
+                val meal: Meal = mealById[mealId] ?: return@flatMap emptyList()
                 val consumedProductsForMeal: List<ConsumedProduct> = consumedProductIds
                     .mapNotNull { consumedProductId: String -> consumedProductById[consumedProductId] }
-                val date: LocalDate = consumedProductsForMeal.firstOrNull()?.date ?: return@mapNotNull null
-                ConsumedMeal(
-                    meal = meal,
-                    date = date,
-                    products = consumedProductsForMeal,
-                    dishes = emptyList()
-                )
+                consumedProductsForMeal
+                    .groupBy { consumedProduct: ConsumedProduct -> consumedProduct.date }
+                    .map { (date: LocalDate, productsOnDate: List<ConsumedProduct>) ->
+                        ConsumedMeal(
+                            meal = meal,
+                            date = date,
+                            products = productsOnDate,
+                            dishes = emptyList(),
+                        )
+                    }
             }
         }
     }
@@ -85,8 +88,8 @@ class CaloriesRepositoryImpl @Inject constructor(
         return caloriesStorage.observeAvailableProducts()
     }
 
-    override fun searchProduct(query: String): Flow<List<Product>> {
-        return caloriesStorage.searchProduct(query)
+    override fun searchProduct(query: String, limit: Int): Flow<List<Product>> {
+        return caloriesStorage.searchProduct(query, limit)
     }
 
     override fun observeMeals(): Flow<List<Meal>> {
@@ -99,5 +102,13 @@ class CaloriesRepositoryImpl @Inject constructor(
 
     override fun searchMeal(query: String): Flow<List<Meal>> {
         return caloriesStorage.searchMeal(query)
+    }
+
+    override fun observeMeal(id: String): Flow<Meal?> {
+        return caloriesStorage.observeMeal(id)
+    }
+
+    override suspend fun getMeal(id: String): Meal? {
+        return caloriesStorage.getMeal(id)
     }
 }

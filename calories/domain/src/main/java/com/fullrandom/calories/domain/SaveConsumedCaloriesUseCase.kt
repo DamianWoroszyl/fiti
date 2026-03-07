@@ -7,6 +7,6 @@ import javax.inject.Inject
 class SaveConsumedCaloriesUseCase @Inject constructor(
     private val caloriesRepository: CaloriesRepository
 ) {
-    suspend operator fun invoke(mealId: String, products: List<PreConsumedProduct>) =
+    suspend operator fun invoke(mealId: String, products: List<PreConsumedProduct>): Result<Unit> =
         caloriesRepository.saveConsumedCalories(mealId = mealId, products = products)
 }

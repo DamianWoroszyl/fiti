@@ -5,18 +5,21 @@ import androidx.lifecycle.viewModelScope
 import com.fullrandom.calories.assistant.api.CaloriesAssistant
 import com.fullrandom.calories.assistant.api.SpeechEvent
 import com.fullrandom.calories.domain.ObserveCaloriesUseCase
-import com.fullrandom.calories.domain.assistant.VoiceAssistantStartTalkUseCase
+import com.fullrandom.calories.domain.ObserveMealsUseCase
+import com.fullrandom.calories.domain.SummaryDayCaloriesMapper
 import com.fullrandom.calories.ui.api.CaloriesUiNavKeys
 import com.fullrandom.fiti.core.ui.api.navigation.Navigator
 import com.fullrandom.model.ConsumedMeal
-import com.fullrandom.model.ConsumedProduct
 import com.fullrandom.model.DateRange
+import com.fullrandom.model.DayCalories
+import com.fullrandom.model.Meal
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -24,13 +27,18 @@ import java.time.LocalDate
 class CaloriesSummaryViewModel @AssistedInject constructor(
     @Assisted private val navKey: CaloriesUiNavKeys.SummaryScreenNavKey,
     private val observeCaloriesUseCase: ObserveCaloriesUseCase,
-    private val voiceAssistantCallNowUseCase: VoiceAssistantStartTalkUseCase,
+    private val observeMealsUseCase: ObserveMealsUseCase,
+    private val summaryDayCaloriesMapper: SummaryDayCaloriesMapper,
     private val navigator: Navigator,
     private val caloriesAssistant: CaloriesAssistant,
-) : ViewModel(){
+) : ViewModel() {
 
-    private val _consumedProducts = MutableStateFlow<List<ConsumedProduct>>(emptyList())
-    val consumedProducts: StateFlow<List<ConsumedProduct>> = _consumedProducts
+    val weekDays: List<LocalDate> = (0L..6L).map { offset: Long -> LocalDate.now().plusDays(offset) }
+
+    private val _weekCalories = MutableStateFlow<List<DayCalories>>(
+        weekDays.map { day: LocalDate -> DayCalories(date = day, consumedMeals = emptyList()) }
+    )
+    val weekCalories: StateFlow<List<DayCalories>> = _weekCalories
 
     private val _finalRecognizedText = MutableStateFlow<String?>(null)
     val finalRecognizedText: StateFlow<String?> = _finalRecognizedText
@@ -45,16 +53,20 @@ class CaloriesSummaryViewModel @AssistedInject constructor(
         get() = caloriesAssistant.listeningState.value
 
     init {
-        loadConsumedProducts()
+        loadWeekCalories()
         observeSpeechRecognitionResults()
     }
 
-    private fun loadConsumedProducts() {
+    private fun loadWeekCalories() {
         viewModelScope.launch {
-            val today = LocalDate.now()
-            val dateRange = DateRange(today, today)
-            observeCaloriesUseCase(dateRange).collect { consumedMeals: List<ConsumedMeal> ->
-                _consumedProducts.value = consumedMeals.flatMap { it.products }
+            val range = DateRange(weekDays.first(), weekDays.last())
+            combine(
+                observeCaloriesUseCase(range),
+                observeMealsUseCase(),
+            ) { consumedMeals: List<ConsumedMeal>, allMeals: List<Meal> ->
+                summaryDayCaloriesMapper.map(weekDays, allMeals, consumedMeals)
+            }.collect { weekCalories: List<DayCalories> ->
+                _weekCalories.value = weekCalories
             }
         }
     }
@@ -62,7 +74,7 @@ class CaloriesSummaryViewModel @AssistedInject constructor(
     private fun observeSpeechRecognitionResults() {
         viewModelScope.launch {
             caloriesAssistant.events.collect { event ->
-                when(event) {
+                when (event) {
                     is SpeechEvent.Error -> _finalRecognizedText.value = event.error.message
                     is SpeechEvent.FinalResult -> {
                         _finalRecognizedText.value = event.result
@@ -76,8 +88,20 @@ class CaloriesSummaryViewModel @AssistedInject constructor(
         }
     }
 
-    fun onAddConsumedProductClicked() {
-//        navigator.navigateToAddConsumedProduct()
+    fun onAddToMealClicked(meal: Meal, date: LocalDate) {
+        navigator.navigate(
+            CaloriesUiNavKeys.ProductSearchScreenNavKey(
+                target = CaloriesUiNavKeys.ProductSearchScreenNavKey.Target.MealTarget(
+                    mealId = meal.id,
+                    mealName = meal.name,
+                    date = date.toEpochDay(),
+                )
+            )
+        )
+    }
+
+    fun onBrowseProductsClicked() {
+        navigator.navigate(CaloriesUiNavKeys.ProductSearchScreenNavKey())
     }
 
     fun onTalkWithAssistantClicked() {
@@ -98,6 +122,7 @@ class CaloriesSummaryViewModel @AssistedInject constructor(
     fun clearLastSpeechError() {
         _lastError.value = null
     }
+
     fun clearRecognizedTextFromVm() {
         _finalRecognizedText.value = null
         _partialSpeechDisplay.value = null

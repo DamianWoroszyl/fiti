@@ -8,6 +8,8 @@ import com.fullrandom.calories.ui.productdetails.ProductDetailsScreen
 import com.fullrandom.calories.ui.productdetails.ProductDetailsViewModel
 import com.fullrandom.calories.ui.productedit.ProductEditScreen
 import com.fullrandom.calories.ui.productedit.ProductEditViewModel
+import com.fullrandom.calories.ui.productsearch.ProductSearchScreen
+import com.fullrandom.calories.ui.productsearch.ProductSearchViewModel
 import com.fullrandom.calories.ui.summary.CaloriesSummaryScreen
 import com.fullrandom.calories.ui.summary.CaloriesSummaryViewModel
 import dagger.Module
@@ -44,6 +46,15 @@ object NavModule {
         entry<CaloriesUiNavKeys.ProductEditNavKey> { key ->
             ProductEditScreen(
                 viewModel = hiltViewModel<ProductEditViewModel, ProductEditViewModel.Factory>(
+                    creationCallback = { factory ->
+                        factory.create(key)
+                    }
+                )
+            )
+        }
+        entry<CaloriesUiNavKeys.ProductSearchScreenNavKey> { key ->
+            ProductSearchScreen(
+                viewModel = hiltViewModel<ProductSearchViewModel, ProductSearchViewModel.Factory>(
                     creationCallback = { factory ->
                         factory.create(key)
                     }

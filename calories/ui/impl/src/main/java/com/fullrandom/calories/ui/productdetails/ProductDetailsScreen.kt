@@ -18,10 +18,16 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -38,8 +44,18 @@ fun ProductDetailsScreen(
     viewModel: ProductDetailsViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val snackbarHostState: SnackbarHostState = remember { SnackbarHostState() }
+    val saveErrorMessage: String? = uiState.saveErrorResId?.let { stringResource(it) }
+
+    LaunchedEffect(saveErrorMessage) {
+        val error: String = saveErrorMessage ?: return@LaunchedEffect
+        snackbarHostState.showSnackbar(error)
+        viewModel.onSaveErrorDismissed()
+    }
+
     ProductDetailsScreenContent(
         uiState = uiState,
+        snackbarHostState = snackbarHostState,
         onGramsChange = viewModel::onGramsChange,
         onAddToTarget = viewModel::onAddToTarget,
         onBack = viewModel::onBack,
@@ -49,11 +65,21 @@ fun ProductDetailsScreen(
 @Composable
 fun ProductDetailsScreenContent(
     uiState: ProductDetailsUiState,
+    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onGramsChange: (String) -> Unit,
     onAddToTarget: () -> Unit,
     onBack: () -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState) { data ->
+                Snackbar(snackbarData = data)
+            }
+        }
+    ) { paddingValues ->
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(paddingValues)) {
         FitiTopBar(
             title = uiState.productName.ifBlank { stringResource(R.string.product_details_title_fallback) },
             leftIcon = Icons.AutoMirrored.Filled.ArrowBack,
@@ -139,6 +165,7 @@ fun ProductDetailsScreenContent(
                 MacroColumn(label = "Fat", value = uiState.fatPer100g.formatMacro() + "g")
             }
         }
+    }
     }
 }
 

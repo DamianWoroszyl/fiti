@@ -54,42 +54,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun MainActivity.FitiAppCompose() {
-
-//    val backStack = rememberNavBackStack(CaloriesUiNavKeys.SummaryScreenNavKey)
-//
-//    val entryProvider: (NavKey) -> NavEntry<NavKey> = entryProvider {
-//        entryBuilders.forEach { builder -> this.builder() }
-//    }
-//
-//    NavDisplay(
-//        entryDecorators = listOf(
-//            rememberSaveableStateHolderNavEntryDecorator(),
-//            rememberViewModelStoreNavEntryDecorator(),
-//        ),
-//        backStack = backStack,
-//        onBack = { backStack.removeLastOrNull() },
-//        entryProvider = entryProvider
-//    )
-
     FitiNavigation(
         initialDestination = CaloriesUiNavKeys.SummaryScreenNavKey,
         entryBuilders = entryBuilders,
         navigator = navigator
     )
-
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = androidx.compose.ui.Alignment.Center
-    ) {
-        Button(
-            onClick = {
-                navigator.navigate(CaloriesUiNavKeys.ProductDetailsScreenNavKey("123"))
-            }
-        ) {
-            Text("Go to product details")
-        }
-    }
-
-
-
 }
