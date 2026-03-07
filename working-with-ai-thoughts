@@ -1,0 +1,9 @@
+1.
+07.03.2026
+No matter how detailed the instructions you give to the AI and how 'advanced' the model is (Sonnet 4.6 at the time of this entry) -
+there's always potential for very bad bugs that are hard to spot in code review and even in manual QA
+
+2.
+07.03.2026
+Claude models have a very weird taste for using map data structure to every data-management task where it could possibly use it.
+At some point understanding what is actually going on with the data is near impossible
