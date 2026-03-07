@@ -1,5 +1,6 @@
 package com.fullrandom.calories.ui.productdetails
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fullrandom.calories.domain.GetMealUseCase
@@ -7,6 +8,7 @@ import com.fullrandom.calories.domain.GetProductUseCase
 import com.fullrandom.calories.domain.SaveConsumedCaloriesUseCase
 import com.fullrandom.calories.ui.api.CaloriesUiNavKeys
 import com.fullrandom.calories.ui.api.CaloriesUiNavKeys.ProductDetailsScreenNavKey.AddTarget
+import com.fullrandom.fiti.calories.ui.impl.R
 import com.fullrandom.fiti.core.ui.api.navigation.Navigator
 import com.fullrandom.model.PreConsumedProduct
 import com.fullrandom.model.Product
@@ -27,7 +29,7 @@ data class ProductDetailsUiState(
     val fatPer100g: Double = 0.0,
     val targetName: String? = null,
     val gramsInput: String = "100",
-    val saveError: String? = null,
+    @StringRes val saveErrorResId: Int? = null,
 ) {
     private val grams: Double get() = gramsInput.toDoubleOrNull() ?: 0.0
     val kcalForGrams: Double get() = kcalPer100g * grams / 100
@@ -83,9 +85,18 @@ class ProductDetailsViewModel @AssistedInject constructor(
 
     fun onAddToTarget() {
         viewModelScope.launch {
-            val product: Product = loadedProduct ?: return@launch
-            val target: AddTarget.MealTarget = navKey.addTarget as? AddTarget.MealTarget ?: return@launch
-            val grams: Double = _uiState.value.gramsInput.toDoubleOrNull() ?: return@launch
+            val product: Product = loadedProduct ?: run {
+                _uiState.value = _uiState.value.copy(saveErrorResId = R.string.product_details_error_product_not_loaded)
+                return@launch
+            }
+            val target: AddTarget.MealTarget = navKey.addTarget as? AddTarget.MealTarget ?: run {
+                _uiState.value = _uiState.value.copy(saveErrorResId = R.string.product_details_error_no_target)
+                return@launch
+            }
+            val grams: Double = _uiState.value.gramsInput.toDoubleOrNull() ?: run {
+                _uiState.value = _uiState.value.copy(saveErrorResId = R.string.product_details_error_invalid_grams)
+                return@launch
+            }
             val date: LocalDate = LocalDate.ofEpochDay(target.date)
             val preConsumedProduct = PreConsumedProduct(
                 product = product,
@@ -97,15 +108,15 @@ class ProductDetailsViewModel @AssistedInject constructor(
             val result: Result<Unit> = saveConsumedCaloriesUseCase(target.mealId, listOf(preConsumedProduct))
             result.fold(
                 onSuccess = { navigator.pop() },
-                onFailure = { error: Throwable ->
-                    _uiState.value = _uiState.value.copy(saveError = error.message)
+                onFailure = {
+                    _uiState.value = _uiState.value.copy(saveErrorResId = R.string.product_details_error_save_failed)
                 },
             )
         }
     }
 
     fun onSaveErrorDismissed() {
-        _uiState.value = _uiState.value.copy(saveError = null)
+        _uiState.value = _uiState.value.copy(saveErrorResId = null)
     }
 
     fun onEditProduct() {

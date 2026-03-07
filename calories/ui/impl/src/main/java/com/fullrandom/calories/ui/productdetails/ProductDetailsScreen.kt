@@ -45,11 +45,11 @@ fun ProductDetailsScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState: SnackbarHostState = remember { SnackbarHostState() }
-    val saveErrorFallback: String = stringResource(R.string.product_details_save_error_fallback)
+    val saveErrorMessage: String? = uiState.saveErrorResId?.let { stringResource(it) }
 
-    LaunchedEffect(uiState.saveError) {
-        val error: String = uiState.saveError ?: return@LaunchedEffect
-        snackbarHostState.showSnackbar(error.ifBlank { saveErrorFallback })
+    LaunchedEffect(saveErrorMessage) {
+        val error: String = saveErrorMessage ?: return@LaunchedEffect
+        snackbarHostState.showSnackbar(error)
         viewModel.onSaveErrorDismissed()
     }
 

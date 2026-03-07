@@ -66,17 +66,20 @@ class CaloriesRepositoryImpl @Inject constructor(
             val mealById: Map<String, Meal> =
                 allMeals.associateBy { meal: Meal -> meal.id }
 
-            consumedProductIdsByMealId.entries.mapNotNull { (mealId: String, consumedProductIds: List<String>) ->
-                val meal: Meal = mealById[mealId] ?: return@mapNotNull null
+            consumedProductIdsByMealId.entries.flatMap { (mealId: String, consumedProductIds: List<String>) ->
+                val meal: Meal = mealById[mealId] ?: return@flatMap emptyList()
                 val consumedProductsForMeal: List<ConsumedProduct> = consumedProductIds
                     .mapNotNull { consumedProductId: String -> consumedProductById[consumedProductId] }
-                val date: LocalDate = consumedProductsForMeal.firstOrNull()?.date ?: return@mapNotNull null
-                ConsumedMeal(
-                    meal = meal,
-                    date = date,
-                    products = consumedProductsForMeal,
-                    dishes = emptyList()
-                )
+                consumedProductsForMeal
+                    .groupBy { consumedProduct: ConsumedProduct -> consumedProduct.date }
+                    .map { (date: LocalDate, productsOnDate: List<ConsumedProduct>) ->
+                        ConsumedMeal(
+                            meal = meal,
+                            date = date,
+                            products = productsOnDate,
+                            dishes = emptyList(),
+                        )
+                    }
             }
         }
     }
