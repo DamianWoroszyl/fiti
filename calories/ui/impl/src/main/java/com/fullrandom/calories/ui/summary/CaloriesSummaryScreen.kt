@@ -18,9 +18,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -94,8 +98,8 @@ fun CaloriesSummaryScreen(
         isListening = viewModel.listeningState,
         onToggleSpeechRecognition = onToggleListeningClick,
         onClearRecognizedText = { viewModel.clearRecognizedTextFromVm() },
-        onMealClicked = { meal: Meal, date: LocalDate -> viewModel.onMealClicked(meal, date) },
-        onCreateProductClicked = { viewModel.onCreateProductClicked() },
+        onAddToMealClicked = { meal: Meal, date: LocalDate -> viewModel.onAddToMealClicked(meal, date) },
+        onBrowseProductsClicked = { viewModel.onBrowseProductsClicked() },
     )
 
     if (lastError != null) {
@@ -128,8 +132,8 @@ fun CaloriesSummaryScreenContent(
     hasAudioPermission: Boolean,
     onToggleSpeechRecognition: () -> Unit,
     onClearRecognizedText: () -> Unit,
-    onMealClicked: (Meal, LocalDate) -> Unit,
-    onCreateProductClicked: () -> Unit,
+    onAddToMealClicked: (Meal, LocalDate) -> Unit,
+    onBrowseProductsClicked: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -148,9 +152,6 @@ fun CaloriesSummaryScreenContent(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Button(onClick = onCreateProductClicked) {
-                    Text(stringResource(R.string.summary_button_create_product))
-                }
                 Button(onClick = onToggleSpeechRecognition) {
                     Text(
                         if (isListening) {
@@ -200,8 +201,15 @@ fun CaloriesSummaryScreenContent(
                 DayPage(
                     pageIndex = pageIndex,
                     dayCalories = dayCalories,
-                    onMealClicked = onMealClicked,
+                    onAddToMealClicked = onAddToMealClicked,
                 )
+            }
+
+            Button(
+                onClick = onBrowseProductsClicked,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(stringResource(R.string.summary_button_browse_products))
             }
         }
     }
@@ -211,7 +219,7 @@ fun CaloriesSummaryScreenContent(
 private fun DayPage(
     pageIndex: Int,
     dayCalories: DayCalories,
-    onMealClicked: (Meal, LocalDate) -> Unit,
+    onAddToMealClicked: (Meal, LocalDate) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -242,7 +250,8 @@ private fun DayPage(
                 items(dayCalories.consumedMeals, key = { it.meal.id }) { consumedMeal: ConsumedMeal ->
                     MealCard(
                         consumedMeal = consumedMeal,
-                        onClick = { onMealClicked(consumedMeal.meal, dayCalories.date) },
+                        date = dayCalories.date,
+                        onAddToMealClicked = onAddToMealClicked,
                     )
                 }
             }
@@ -253,31 +262,44 @@ private fun DayPage(
 @Composable
 private fun MealCard(
     consumedMeal: ConsumedMeal,
-    onClick: () -> Unit,
+    date: LocalDate,
+    onAddToMealClicked: (Meal, LocalDate) -> Unit,
 ) {
     val totalKcal: Double = consumedMeal.products.sumOf { it.kcalPer100g * it.amountGrams / 100.0 }
     val productCount: Int = consumedMeal.products.size
 
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = consumedMeal.meal.name,
-                style = MaterialTheme.typography.titleMedium,
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = stringResource(R.string.summary_meal_kcal, totalKcal),
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            Text(
-                text = stringResource(R.string.summary_meal_products_count, productCount),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { onAddToMealClicked(consumedMeal.meal, date) }
+                    .padding(16.dp),
+            ) {
+                Text(
+                    text = consumedMeal.meal.name,
+                    style = MaterialTheme.typography.titleMedium,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = stringResource(R.string.summary_meal_kcal, totalKcal),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Text(
+                    text = stringResource(R.string.summary_meal_products_count, productCount),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            IconButton(onClick = { onAddToMealClicked(consumedMeal.meal, date) }) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(R.string.summary_meal_add_content_description),
+                )
+            }
         }
     }
 }

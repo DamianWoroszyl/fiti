@@ -15,7 +15,7 @@ interface CaloriesStorage {
     fun observeConsumedProducts(range: DateRange): Flow<List<ConsumedProduct>>
     fun observeMealToConsumedProductAssignments(range: DateRange): Flow<Map<String, List<String>>>
     fun observeAvailableProducts(): Flow<List<Product>>
-    fun searchProduct(query: String): Flow<List<Product>>
+    fun searchProduct(query: String, limit: Int): Flow<List<Product>>
     fun observeMeals(): Flow<List<Meal>>
     suspend fun saveMeal(meal: Meal)
     fun searchMeal(query: String): Flow<List<Meal>>

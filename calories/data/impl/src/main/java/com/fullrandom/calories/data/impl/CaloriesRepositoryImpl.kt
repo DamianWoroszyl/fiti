@@ -88,8 +88,8 @@ class CaloriesRepositoryImpl @Inject constructor(
         return caloriesStorage.observeAvailableProducts()
     }
 
-    override fun searchProduct(query: String): Flow<List<Product>> {
-        return caloriesStorage.searchProduct(query)
+    override fun searchProduct(query: String, limit: Int): Flow<List<Product>> {
+        return caloriesStorage.searchProduct(query, limit)
     }
 
     override fun observeMeals(): Flow<List<Meal>> {

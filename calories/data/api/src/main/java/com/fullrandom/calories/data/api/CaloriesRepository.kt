@@ -12,7 +12,7 @@ interface CaloriesRepository {
     suspend fun saveProduct(product: Product)
     suspend fun deleteProduct(id: String)
     suspend fun getProduct(id: String): Product?
-    fun searchProduct(query: String): Flow<List<Product>>
+    fun searchProduct(query: String, limit: Int): Flow<List<Product>>
 
     suspend fun saveConsumedCalories(mealId: String, products: List<PreConsumedProduct>): Result<Unit>
     fun observeConsumedCalories(range: DateRange): Flow<List<ConsumedMeal>>

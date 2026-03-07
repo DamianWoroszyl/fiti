@@ -6,16 +6,13 @@ import com.fullrandom.calories.assistant.api.CaloriesAssistant
 import com.fullrandom.calories.assistant.api.SpeechEvent
 import com.fullrandom.calories.domain.ObserveCaloriesUseCase
 import com.fullrandom.calories.domain.ObserveMealsUseCase
-import com.fullrandom.calories.domain.SearchProductUseCase
 import com.fullrandom.calories.domain.SummaryDayCaloriesMapper
 import com.fullrandom.calories.ui.api.CaloriesUiNavKeys
-import com.fullrandom.calories.ui.api.CaloriesUiNavKeys.ProductDetailsScreenNavKey.AddTarget
 import com.fullrandom.fiti.core.ui.api.navigation.Navigator
 import com.fullrandom.model.ConsumedMeal
 import com.fullrandom.model.DateRange
 import com.fullrandom.model.DayCalories
 import com.fullrandom.model.Meal
-import com.fullrandom.model.Product
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -23,7 +20,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -32,7 +28,6 @@ class CaloriesSummaryViewModel @AssistedInject constructor(
     @Assisted private val navKey: CaloriesUiNavKeys.SummaryScreenNavKey,
     private val observeCaloriesUseCase: ObserveCaloriesUseCase,
     private val observeMealsUseCase: ObserveMealsUseCase,
-    private val searchProductUseCase: SearchProductUseCase,
     private val summaryDayCaloriesMapper: SummaryDayCaloriesMapper,
     private val navigator: Navigator,
     private val caloriesAssistant: CaloriesAssistant,
@@ -93,23 +88,20 @@ class CaloriesSummaryViewModel @AssistedInject constructor(
         }
     }
 
-    fun onMealClicked(meal: Meal, date: LocalDate) {
-        viewModelScope.launch {
-            val product: Product = searchProductUseCase("").first().firstOrNull() ?: return@launch
-            navigator.navigate(
-                CaloriesUiNavKeys.ProductDetailsScreenNavKey(
-                    productId = product.id,
-                    addTarget = AddTarget.MealTarget(
-                        mealId = meal.id,
-                        date = date.toEpochDay(),
-                    ),
+    fun onAddToMealClicked(meal: Meal, date: LocalDate) {
+        navigator.navigate(
+            CaloriesUiNavKeys.ProductSearchScreenNavKey(
+                target = CaloriesUiNavKeys.ProductSearchScreenNavKey.Target.MealTarget(
+                    mealId = meal.id,
+                    mealName = meal.name,
+                    date = date.toEpochDay(),
                 )
             )
-        }
+        )
     }
 
-    fun onCreateProductClicked() {
-        navigator.navigate(CaloriesUiNavKeys.ProductEditNavKey())
+    fun onBrowseProductsClicked() {
+        navigator.navigate(CaloriesUiNavKeys.ProductSearchScreenNavKey())
     }
 
     fun onTalkWithAssistantClicked() {

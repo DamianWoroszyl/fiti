@@ -8,6 +8,6 @@ import javax.inject.Inject
 class SearchProductUseCase @Inject constructor(
     private val caloriesRepository: CaloriesRepository
 ) {
-    operator fun invoke(query: String): Flow<List<Product>> =
-        caloriesRepository.searchProduct(query)
+    operator fun invoke(query: String, limit: Int = 1000): Flow<List<Product>> =
+        caloriesRepository.searchProduct(query, limit)
 }

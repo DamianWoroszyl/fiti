@@ -28,4 +28,11 @@
     <string name="summary_button_clear_speech">Clear Speech</string>
     <string name="summary_speech_heard">Heard: %1$s</string>
     <string name="summary_speech_said">You said: %1$s</string>
+    <string name="summary_button_browse_products">Browse products</string>
+    <string name="summary_meal_add_content_description">Add product to meal</string>
+    <string name="product_search_title">Product search</string>
+    <string name="product_search_hint">Search products…</string>
+    <string name="product_search_empty">No products found</string>
+    <string name="product_search_add_product">Add product</string>
+    <string name="product_search_kcal_per_100g">%1$.0f kcal/100g</string>
 </resources>

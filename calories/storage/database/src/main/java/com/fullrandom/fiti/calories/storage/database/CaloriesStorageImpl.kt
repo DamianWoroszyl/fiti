@@ -88,8 +88,8 @@ internal class CaloriesStorageImpl(
         }
     }
 
-    override fun searchProduct(query: String): Flow<List<Product>> {
-        return productDao.searchByName(query).map { productEntities: List<ProductEntity> ->
+    override fun searchProduct(query: String, limit: Int): Flow<List<Product>> {
+        return productDao.searchByName(query, limit).map { productEntities: List<ProductEntity> ->
             productEntities.map { productEntity: ProductEntity -> productEntity.toDomain() }
         }
     }

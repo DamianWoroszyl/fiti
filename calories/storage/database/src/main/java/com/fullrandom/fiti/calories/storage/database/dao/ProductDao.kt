@@ -21,8 +21,8 @@ internal interface ProductDao {
     @Query("SELECT * FROM product WHERE id = :id LIMIT 1")
     fun observeById(id: String): Flow<ProductEntity?>
 
-    @Query("SELECT * FROM product WHERE name LIKE '%' || :query || '%' ORDER BY name ASC")
-    fun searchByName(query: String): Flow<List<ProductEntity>>
+    @Query("SELECT * FROM product WHERE name LIKE '%' || :query || '%' ORDER BY name ASC LIMIT :limit")
+    fun searchByName(query: String, limit: Int): Flow<List<ProductEntity>>
 
     @Query("SELECT * FROM product")
     fun getAll(): Flow<List<ProductEntity>>
