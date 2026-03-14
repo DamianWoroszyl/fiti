@@ -8,11 +8,6 @@ import com.fullrandom.model.Product
 import java.util.UUID
 import javax.inject.Inject
 
-private const val CSV_COLUMN_NAME = 0
-private const val CSV_COLUMN_KCAL = 1
-private const val CSV_COLUMN_PROTEIN = 2
-private const val CSV_COLUMN_CARBS = 3
-private const val CSV_COLUMN_FAT = 4
 private const val CSV_EXPECTED_COLUMN_COUNT = 5
 
 class ProductLoaderImpl @Inject constructor(
@@ -35,13 +30,18 @@ class ProductLoaderImpl @Inject constructor(
         val columns: List<String> = line.split(",")
         if (columns.size < CSV_EXPECTED_COLUMN_COUNT) return null
         return try {
+            val name: String = columns.dropLast(4).joinToString(",").trim().removeSurrounding("\"")
+            val kcalPer100g: Double = columns[columns.size - 4].trim().toDouble()
+            val proteinPer100g: Double = columns[columns.size - 3].trim().toDouble()
+            val carbohydratesPer100g: Double = columns[columns.size - 2].trim().toDouble()
+            val fatPer100g: Double = columns[columns.size - 1].trim().toDouble()
             Product(
                 id = UUID.randomUUID().toString(),
-                name = columns[CSV_COLUMN_NAME].trim(),
-                kcalPer100g = columns[CSV_COLUMN_KCAL].trim().toDouble(),
-                proteinPer100g = columns[CSV_COLUMN_PROTEIN].trim().toDouble(),
-                carbohydratesPer100g = columns[CSV_COLUMN_CARBS].trim().toDouble(),
-                fatPer100g = columns[CSV_COLUMN_FAT].trim().toDouble(),
+                name = name,
+                kcalPer100g = kcalPer100g,
+                proteinPer100g = proteinPer100g,
+                carbohydratesPer100g = carbohydratesPer100g,
+                fatPer100g = fatPer100g,
             )
         } catch (exception: NumberFormatException) {
             null
