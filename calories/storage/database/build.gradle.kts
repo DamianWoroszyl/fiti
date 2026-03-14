@@ -18,6 +18,7 @@ dependencies {
     implementation(project(":calories:storage:api"))
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)

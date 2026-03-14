@@ -35,4 +35,6 @@
     <string name="product_search_empty">No products found</string>
     <string name="product_search_add_product">Add product</string>
     <string name="product_search_kcal_per_100g">%1$.0f kcal/100g</string>
+    <string name="product_init_loading">Loading products</string>
+    <string name="summary_button_load_initial_products">Load initial products</string>
 </resources>

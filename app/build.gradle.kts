@@ -41,6 +41,7 @@ dependencies {
     implementation(project(":calories:assistant:impl"))
     implementation(project(":calories:storage:api"))
     implementation(project(":calories:storage:database"))
+    implementation(project(":calories:localassets:impl"))
     implementation(project(":core:ui:api"))
     implementation(project(":core:ui:impl"))
     implementation(project(":core:common"))

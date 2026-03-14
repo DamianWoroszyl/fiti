@@ -17,6 +17,7 @@ dependencies {
     implementation(project(":calories:model"))
     implementation(project(":calories:data:api"))
     implementation(project(":calories:storage:api"))
+    implementation(project(":calories:localassets:api"))
     implementation(project(":core:init"))
 
     implementation(libs.androidx.core.ktx)

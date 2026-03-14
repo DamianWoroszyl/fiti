@@ -1,7 +1,9 @@
 package com.fullrandom.calories.data.impl
 
 import com.fullrandom.calories.data.api.CaloriesRepository
+import com.fullrandom.calories.data.api.ProductLoader
 import com.fullrandom.fiti.init.AppInitializer
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,17 +13,23 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object DataModule {
+interface DataModule {
 
-    @Singleton
-    @Provides
-    fun provideCaloriesRepository(
-        caloriesRepository: CaloriesRepositoryImpl
-    ): CaloriesRepository = caloriesRepository
+    @Binds
+    fun bindProductLoader(impl: ProductLoaderImpl): ProductLoader
 
-    @Provides
-    @IntoSet
-    fun provideCaloriesInitializer(
-        caloriesInitializer: CaloriesInitializer
-    ): AppInitializer = caloriesInitializer
+    companion object {
+
+        @Singleton
+        @Provides
+        fun provideCaloriesRepository(
+            caloriesRepository: CaloriesRepositoryImpl
+        ): CaloriesRepository = caloriesRepository
+
+        @Provides
+        @IntoSet
+        fun provideCaloriesInitializer(
+            caloriesInitializer: CaloriesInitializer
+        ): AppInitializer = caloriesInitializer
+    }
 }

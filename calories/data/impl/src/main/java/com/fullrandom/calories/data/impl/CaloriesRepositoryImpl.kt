@@ -111,4 +111,12 @@ class CaloriesRepositoryImpl @Inject constructor(
     override suspend fun getMeal(id: String): Meal? {
         return caloriesStorage.getMeal(id)
     }
+
+    override suspend fun isProductInitDone(): Boolean {
+        return caloriesStorage.isProductInitDone()
+    }
+
+    override suspend fun markProductInitDone() {
+        caloriesStorage.markProductInitDone()
+    }
 }

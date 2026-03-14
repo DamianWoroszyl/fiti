@@ -104,6 +104,10 @@ class CaloriesSummaryViewModel @AssistedInject constructor(
         navigator.navigate(CaloriesUiNavKeys.ProductSearchScreenNavKey())
     }
 
+    fun onLoadInitialProductsClicked() {
+        navigator.navigate(CaloriesUiNavKeys.ProductInitScreenNavKey)
+    }
+
     fun onTalkWithAssistantClicked() {
 //        voiceAssistantCallNowUseCase()
         TODO("probably only dictation will be used")

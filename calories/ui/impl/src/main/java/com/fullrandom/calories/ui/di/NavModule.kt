@@ -8,6 +8,8 @@ import com.fullrandom.calories.ui.productdetails.ProductDetailsScreen
 import com.fullrandom.calories.ui.productdetails.ProductDetailsViewModel
 import com.fullrandom.calories.ui.productedit.ProductEditScreen
 import com.fullrandom.calories.ui.productedit.ProductEditViewModel
+import com.fullrandom.calories.ui.productinit.ProductInitScreen
+import com.fullrandom.calories.ui.productinit.ProductInitViewModel
 import com.fullrandom.calories.ui.productsearch.ProductSearchScreen
 import com.fullrandom.calories.ui.productsearch.ProductSearchViewModel
 import com.fullrandom.calories.ui.summary.CaloriesSummaryScreen
@@ -55,6 +57,15 @@ object NavModule {
         entry<CaloriesUiNavKeys.ProductSearchScreenNavKey> { key ->
             ProductSearchScreen(
                 viewModel = hiltViewModel<ProductSearchViewModel, ProductSearchViewModel.Factory>(
+                    creationCallback = { factory ->
+                        factory.create(key)
+                    }
+                )
+            )
+        }
+        entry<CaloriesUiNavKeys.ProductInitScreenNavKey> { key ->
+            ProductInitScreen(
+                viewModel = hiltViewModel<ProductInitViewModel, ProductInitViewModel.Factory>(
                     creationCallback = { factory ->
                         factory.create(key)
                     }

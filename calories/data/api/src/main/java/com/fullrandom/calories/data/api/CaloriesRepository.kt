@@ -24,4 +24,6 @@ interface CaloriesRepository {
     fun searchMeal(query: String): Flow<List<Meal>>
     fun observeMeal(id: String): Flow<Meal?>
     suspend fun getMeal(id: String): Meal?
+    suspend fun isProductInitDone(): Boolean
+    suspend fun markProductInitDone()
 }

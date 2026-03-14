@@ -30,6 +30,9 @@ object CaloriesUiNavKeys {
     ) : FitiNavKey
 
     @Serializable
+    data object ProductInitScreenNavKey : FitiNavKey
+
+    @Serializable
     data class ProductSearchScreenNavKey(
         val target: Target? = null,
     ) : FitiNavKey {

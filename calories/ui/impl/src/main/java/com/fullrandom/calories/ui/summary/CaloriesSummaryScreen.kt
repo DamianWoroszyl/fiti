@@ -100,6 +100,7 @@ fun CaloriesSummaryScreen(
         onClearRecognizedText = { viewModel.clearRecognizedTextFromVm() },
         onAddToMealClicked = { meal: Meal, date: LocalDate -> viewModel.onAddToMealClicked(meal, date) },
         onBrowseProductsClicked = { viewModel.onBrowseProductsClicked() },
+        onLoadInitialProductsClicked = { viewModel.onLoadInitialProductsClicked() },
     )
 
     if (lastError != null) {
@@ -134,6 +135,7 @@ fun CaloriesSummaryScreenContent(
     onClearRecognizedText: () -> Unit,
     onAddToMealClicked: (Meal, LocalDate) -> Unit,
     onBrowseProductsClicked: () -> Unit,
+    onLoadInitialProductsClicked: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -210,6 +212,12 @@ fun CaloriesSummaryScreenContent(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Text(stringResource(R.string.summary_button_browse_products))
+            }
+            Button(
+                onClick = onLoadInitialProductsClicked,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(stringResource(R.string.summary_button_load_initial_products))
             }
         }
     }

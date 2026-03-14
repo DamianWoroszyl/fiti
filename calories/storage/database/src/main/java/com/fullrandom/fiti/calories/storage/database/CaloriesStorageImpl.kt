@@ -1,5 +1,10 @@
 package com.fullrandom.fiti.calories.storage.database
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.MutablePreferences
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
 import com.fullrandom.fiti.calories.storage.database.dao.ConsumedProductDao
 import com.fullrandom.fiti.calories.storage.database.dao.MealDao
 import com.fullrandom.fiti.calories.storage.database.dao.MealToConsumedProductDao
@@ -15,13 +20,17 @@ import com.fullrandom.model.DateRange
 import com.fullrandom.model.Meal
 import com.fullrandom.model.Product
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+
+private val PRODUCT_INIT_DONE_KEY = booleanPreferencesKey("product_init_done")
 
 internal class CaloriesStorageImpl(
     private val consumedProductDao: ConsumedProductDao,
     private val productDao: ProductDao,
     private val mealDao: MealDao,
     private val mealToConsumedProductDao: MealToConsumedProductDao,
+    private val caloriesPreferences: DataStore<Preferences>,
 ) : CaloriesStorage {
 
     override suspend fun saveProduct(product: Product) {
@@ -116,5 +125,15 @@ internal class CaloriesStorageImpl(
 
     override suspend fun getMeal(id: String): Meal? {
         return mealDao.findById(id)?.toDomain()
+    }
+
+    override suspend fun isProductInitDone(): Boolean {
+        return caloriesPreferences.data.first()[PRODUCT_INIT_DONE_KEY] == true
+    }
+
+    override suspend fun markProductInitDone() {
+        caloriesPreferences.edit { preferences: MutablePreferences ->
+            preferences[PRODUCT_INIT_DONE_KEY] = true
+        }
     }
 }
